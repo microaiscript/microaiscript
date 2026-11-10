@@ -1,0 +1,1814 @@
+{
+  "module": "jump_statements",
+  "cases": [
+    {
+      "name": "jump_statements::return_::as_statement#1",
+      "program": "\n            @f() {\n                return 1\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::as_statement#2",
+      "program": "return 1",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_eval#1",
+      "program": "\n            @f() {\n                let a = eval {\n                    return 1\n                }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_eval#2",
+      "program": "<: eval { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_if::cond#1",
+      "program": "\n                @f() {\n                    let a = if eval { return true } {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_if::cond#2",
+      "program": "<: if eval { return true } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_if::then#1",
+      "program": "\n                @f() {\n                    let a = if true {\n                        return 1\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_if::then#2",
+      "program": "<: if true { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_if::elif_cond#1",
+      "program": "\n                @f() {\n                    let a = if false {} elif eval { return true } {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_if::elif_cond#2",
+      "program": "<: if false {} elif eval { return true } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_if::elif_then#1",
+      "program": "\n                @f() {\n                    let a = if false {\n                    } elif true {\n                        return 1\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_if::elif_then#2",
+      "program": "<: if false {} elif true eval { return true }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_if::else_#1",
+      "program": "\n                @f() {\n                    let a = if false {\n                    } else {\n                        return 1\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_if::else_#2",
+      "program": "<: if false {} else eval { return true }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_match::about#1",
+      "program": "\n                @f() {\n                    let a = match eval { return 1 } {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_match::about#2",
+      "program": "<: match eval { return 1 } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_match::case_q#1",
+      "program": "\n                @f() {\n                    let a = match 0 {\n                        case eval { return 0 } => {\n                            return 1\n                        }\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_match::case_q#2",
+      "program": "<: match 0 { case eval { return 0 } => {} }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_match::case_a#1",
+      "program": "\n                @f() {\n                    let a = match 0 {\n                        case 0 => {\n                            return 1\n                        }\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_match::case_a#2",
+      "program": "<: match 0 { case 0 => { return 1 } }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_match::default#1",
+      "program": "\n                @f() {\n                    let a = match 0 {\n                        default => {\n                            return 1\n                        }\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_match::default#2",
+      "program": "<: match 0 { default => { return 1 } }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_binary_operation::left#1",
+      "program": "\n                @f() {\n                    eval { return 1 } + 2\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_binary_operation::left#2",
+      "program": "<: eval { return 1 } + 2",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_binary_operation::right#1",
+      "program": "\n                @f() {\n                    1 + eval { return 2 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_binary_operation::right#2",
+      "program": "<: 1 + eval { return 2 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_call::callee#1",
+      "program": "\n                @f() {\n                    eval { return print }('Hello, world!')\n                }\n                f()('Hi')\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "Hi"
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_call::callee#2",
+      "program": "eval { return print }('Hello, world!')",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_call::arg#1",
+      "program": "\n                @f() {\n                    print(eval { return 'Hello, world!' })\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "Hello, world!"
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_call::arg#2",
+      "program": "print(eval { return 'Hello, world' })",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_for::times#1",
+      "program": "\n                @f() {\n                    for eval { return 1 } {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_for::times#2",
+      "program": "for eval { return 1 } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_for::from#1",
+      "program": "\n                @f() {\n                    for let i = eval { return 1 }, 2 {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_for::from#2",
+      "program": "for let i = eval { return 1 }, 2 {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_for::to#1",
+      "program": "\n                @f() {\n                    for let i = 0, eval { return 1 } {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_for::to#2",
+      "program": "for let i = 0, eval { return 1 } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_for::for_#1",
+      "program": "\n                @f() {\n                    for 1 {\n                        return 1\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_for::for_#2",
+      "program": "for 1 { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_each::items#1",
+      "program": "\n                @f() {\n                    each let v, [eval { return 1 }] {}\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_each::items#2",
+      "program": "each let v, [eval { return 1 }] {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_each::for_#1",
+      "program": "\n                @f() {\n                    each let v, [0] {\n                        return 1\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_each::for_#2",
+      "program": "each let v, [0] { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_assign::expr#1",
+      "program": "\n                @f() {\n                    var a = null\n                    a = eval { return 1 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_assign::expr#2",
+      "program": "var a = null; a = eval { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_assign::index_target#1",
+      "program": "\n                @f() {\n                    let a = [null]\n                    eval { return a }[0] = 1\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "extract_error": "expected ( after testutils",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "jump_statements::return_::in_assign::index_target#2",
+      "program": "let a = [null]; eval { return a }[0] = 1",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_assign::index#1",
+      "program": "\n                @f() {\n                    let a = [null]\n                    a[eval { return 0 }] = 1\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_assign::index#2",
+      "program": "let a = [null]; a[eval { return 0 }] = 1",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_assign::prop_target#1",
+      "program": "\n                @f() {\n                    let o = {}\n                    eval { return o }.p = 1\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "extract_error": "expected ( after testutils",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "jump_statements::return_::in_assign::prop_target#2",
+      "program": "let o = {}; eval { return o }.p = 1",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_assign::arr#1",
+      "program": "\n                @f() {\n                    let o = {}\n                    [eval { return o }.p] = [1]\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "extract_error": "expected ( after testutils",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "jump_statements::return_::in_assign::arr#2",
+      "program": "let o = {}; [eval { return o }.p] = [1]",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax",
+      "skip_vm": true,
+      "skip_interpreter": true
+    },
+    {
+      "name": "jump_statements::return_::in_assign::obj#1",
+      "program": "\n                @f() {\n                    let o = {}\n                    { a: eval { return o }.p } = { a: 1 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "extract_error": "expected ( after testutils",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "jump_statements::return_::in_assign::obj#2",
+      "program": "let o = {}; { a: eval { return o }.p } = { a: 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_add_assign::dest#1",
+      "program": "\n                @f() {\n                    let a = [0]\n                    a[eval { return 0 }] += 1\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_add_assign::dest#2",
+      "program": "let a = [0]; a[eval { return 0 }] += 1",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_add_assign::expr#1",
+      "program": "\n                @f() {\n                    let a = 0\n                    a += eval { return 1 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_add_assign::expr#2",
+      "program": "let a = 0; a += eval { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_sub_assign::dest#1",
+      "program": "\n                @f() {\n                    let a = [0]\n                    a[eval { return 0 }] -= 1\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_sub_assign::dest#2",
+      "program": "let a = [0]; a[eval { return 0 }] -= 1",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_sub_assign::expr#1",
+      "program": "\n                @f() {\n                    let a = 0\n                    a -= eval { return 1 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_sub_assign::expr#2",
+      "program": "let a = 0; a -= eval { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_array#1",
+      "program": "\n            @f() {\n                let a = [eval { return 1 }]\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_array#2",
+      "program": "<: [eval { return 1 }]",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_object#1",
+      "program": "\n            @f() {\n                let o = {\n                    p: eval { return 1 }\n                }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_object#2",
+      "program": "<: { p: eval { return 1 } }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_prop#1",
+      "program": "\n            @f() {\n                let p = {\n                    p: eval { return 1 }\n                }.p\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_prop#2",
+      "program": "<: { p: eval { return 1 } }.p",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_index::target#1",
+      "program": "\n                @f() {\n                    let v = [eval { return 1 }][0]\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_index::target#2",
+      "program": "<: [eval { return 1 }][0]",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_index::index#1",
+      "program": "\n                @f() {\n                    let v = [1][eval { return 0 }]\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_index::index#2",
+      "program": "<: [0][eval { return 1 }]",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_not#1",
+      "program": "\n            @f() {\n                let b = !eval { return true }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_not#2",
+      "program": "<: !eval { return true }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_function_default_param#1",
+      "program": "\n            @f() {\n                let g = @(x = eval { return 1 }) {}\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_function_default_param#2",
+      "program": "<: @(x = eval { return 1 }){}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_function_default_param#3",
+      "program": "<: @(a = @(b = eval { return 0 }){}){}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_template#1",
+      "program": "\n            @f() {\n                let s = `{eval { return 1 }}`\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_template#2",
+      "program": "<: `{eval {return 1}}`",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_return#1",
+      "program": "\n            @f() {\n                return eval { return 1 } + 2\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_return#2",
+      "program": "return eval { return 1 } + 2",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_break::valid",
+      "program": "\n                @f() {\n                    #l: eval {\n                        break #l eval { return 1 }\n                    }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_break::invalid",
+      "program": "\n                #l: eval {\n                    break #l eval { return 1 }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_and::left#1",
+      "program": "\n                @f() {\n                    eval { return 1 } && false\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_and::left#2",
+      "program": "eval { return 1 } && false",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_and::right#1",
+      "program": "\n                @f() {\n                    true && eval { return 1 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_and::right#2",
+      "program": "true && eval { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_or::left#1",
+      "program": "\n                @f() {\n                    eval { return 1 } || false\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_or::left#2",
+      "program": "eval { return 1 } || false",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::return_::in_or::right#1",
+      "program": "\n                @f() {\n                    false || eval { return 1 }\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::return_::in_or::right#2",
+      "program": "false || eval { return 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::as_statement#1",
+      "program": "\n            var x = 0\n            for 1 {\n                break\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::as_statement#2",
+      "program": "break",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::as_statement#3",
+      "program": "@() { break }()",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::in_eval#1",
+      "program": "\n            var x = 0\n            for 1 {\n                let a = eval {\n                    break\n                }\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::in_eval#2",
+      "program": "<: eval { break }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::in_if#1",
+      "program": "\n            var x = 0\n            for 1 {\n                let a = if true {\n                    break\n                }\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::in_if#2",
+      "program": "<: if true { break }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::in_match#1",
+      "program": "\n            var x = 0\n            for 1 {\n                let a = match 0 {\n                    default => break\n                }\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::in_match#2",
+      "program": "<: match 0 { default => break }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::in_function",
+      "program": "\n            for 1 {\n                @f() {\n                    break;\n                }\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::invalid_label",
+      "program": "\n            for 1 {\n                break #l\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::invalid_value",
+      "program": "\n            #l: for 1 {\n                break #l 1\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_each_is_not_allowed_in_the_target",
+      "program": "#l: each let i, eval { break #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_for_is_not_allowed_in_the_count",
+      "program": "#l: for eval { break #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_for_is_not_allowed_in_the_range::from",
+      "program": "#l: for let i = eval { break #l }, 0 {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_for_is_not_allowed_in_the_range::to",
+      "program": "#l: for let i = 0, eval { break #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_if_is_not_allowed_in_the_condition::if_",
+      "program": "#l: if eval { break #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_if_is_not_allowed_in_the_condition::elif",
+      "program": "#l: if false {} elif eval { break #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_match_is_not_allowed_in_the_target",
+      "program": "#l: match eval { break #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::break_corresponding_to_match_is_not_allowed_in_the_pattern",
+      "program": "#l: match 0 { case eval { break #l } => 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::break_::labeled_each::inner_each",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    each let v, [0] {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_each::inner_for",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    for 1 {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_each::inner_loop",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    loop {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_each::inner_do_while",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    do {\n                        x = 1\n                        break #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_each::inner_while",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    while true {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_for::inner_each",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    each let v, [0] {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_for::inner_for",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    for 1 {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_for::inner_loop",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    loop {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_for::inner_do_while",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    do {\n                        x = 1\n                        break #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_for::inner_while",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    while true {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_loop::inner_each",
+      "program": "\n                var x = 0\n                #l: loop {\n                    each let v, [0] {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_loop::inner_for",
+      "program": "\n                var x = 0\n                #l: loop {\n                    for 1 {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_loop::inner_loop",
+      "program": "\n                var x = 0\n                #l: loop {\n                    loop {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_loop::inner_do_while",
+      "program": "\n                var x = 0\n                #l: loop {\n                    do {\n                        x = 1\n                        break #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_loop::inner_while",
+      "program": "\n                var x = 0\n                #l: loop {\n                    while true {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_do_while::inner_each",
+      "program": "\n                var x = 0\n                #l: do {\n                    each let v, [0] {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                } while false\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_do_while::inner_for",
+      "program": "\n                var x = 0\n                #l: do {\n                    for 1 {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                } while false\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_do_while::inner_loop",
+      "program": "\n                var x = 0\n                #l: do {\n                    loop {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                } while false\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_do_while::inner_do_while",
+      "program": "\n                var x = 0\n                #l: do {\n                    do {\n                        x = 1\n                        break #l\n                    } while false\n                    x = 2\n                } while false\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_do_while::inner_while",
+      "program": "\n                var x = 0\n                #l: do {\n                    while true {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                } while false\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_while::inner_each",
+      "program": "\n                var x = 0\n                #l: while true {\n                    each let v, [0] {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_while::inner_for",
+      "program": "\n                var x = 0\n                #l: while true {\n                    for 1 {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_while::inner_loop",
+      "program": "\n                var x = 0\n                #l: while true {\n                    loop {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_while::inner_do_while",
+      "program": "\n                var x = 0\n                #l: while true {\n                    do {\n                        x = 1\n                        break #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_while::inner_while",
+      "program": "\n                var x = 0\n                #l: while true {\n                    while true {\n                        x = 1\n                        break #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_if::simple_break",
+      "program": "\n                <: #l: if true {\n                    break #l\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_if::break_with_value",
+      "program": "\n                <: #l: if true {\n                    break #l 1\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_match::simple_break",
+      "program": "\n                <: #l: match 0 {\n                    default => {\n                        break #l\n                        2\n                    }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_match::break_with_value",
+      "program": "\n                <: #l: match 0 {\n                    default => {\n                        break #l 1\n                        2\n                    }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_eval::simple_break",
+      "program": "\n                <: #l: eval {\n                    break #l\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_eval::break_with_value",
+      "program": "\n                <: #l: eval {\n                    break #l 1\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::break_::labeled_eval::inner_while",
+      "program": "\n                <: #l: eval {\n                    while true {\n                        if true break #l 1\n                    }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::as_statement#1",
+      "program": "\n            var x = 0\n            for 1 {\n                continue\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::as_statement#2",
+      "program": "continue",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::as_statement#3",
+      "program": "@() { continue }()",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::in_eval#1",
+      "program": "\n            var x = 0\n            for 1 {\n                let a = eval {\n                    continue\n                }\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::in_eval#2",
+      "program": "<: eval { continue }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::in_if#1",
+      "program": "\n            var x = 0\n            for 1 {\n                let a = if true {\n                    continue\n                }\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::in_if#2",
+      "program": "<: if true { continue }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::in_match#1",
+      "program": "\n            var x = 0\n            for 1 {\n                let a = match 0 {\n                    default => continue\n                }\n                x += 1\n            }\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::in_match#2",
+      "program": "<: match 0 { default => continue }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::in_function",
+      "program": "\n            for 1 {\n                @f() {\n                    continue;\n                }\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::invalid_label",
+      "program": "\n            for 1 {\n                continue #l\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::invalid_block#1",
+      "program": "#l: if true { continue #l }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::invalid_block#2",
+      "program": "#l: match 0 { default => continue #l }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::invalid_block#3",
+      "program": "#l: eval { continue #l }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::continue_corresponding_to_each_is_not_allowed_in_the_target",
+      "program": "#l: each let i, eval { continue #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::continue_corresponding_to_for_is_not_allowed_in_the_count",
+      "program": "#l: for eval { continue #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::continue_corresponding_to_for_is_not_allowed_in_the_range::from",
+      "program": "#l: for let i = eval { continue #l }, 0 {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::continue_corresponding_to_for_is_not_allowed_in_the_range::to",
+      "program": "#l: for let i = 0, eval { continue #l } {}",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::continue_::labeled_each::inner_each",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    each let v, [0] {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_each::inner_for",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    for 1 {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_each::inner_loop",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    loop {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_each::inner_do_while",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    do {\n                        x = 1\n                        continue #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_each::inner_while",
+      "program": "\n                var x = 0\n                #l: each let v, [0] {\n                    while true {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_for::inner_each",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    each let v, [0] {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_for::inner_for",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    for 1 {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_for::inner_loop",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    loop {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_for::inner_do_while",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    do {\n                        x = 1\n                        continue #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_for::inner_while",
+      "program": "\n                var x = 0\n                #l: for 1 {\n                    while true {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_while::inner_each",
+      "program": "\n                var x = 0\n                #l: while x == 0 {\n                    each let v, [0] {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_while::inner_for",
+      "program": "\n                var x = 0\n                #l: while x == 0 {\n                    for 1 {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_while::inner_loop",
+      "program": "\n                var x = 0\n                #l: while x == 0 {\n                    loop {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_while::inner_do_while",
+      "program": "\n                var x = 0\n                #l: while x == 0 {\n                    do {\n                        x = 1\n                        continue #l\n                    } while false\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_while::inner_while",
+      "program": "\n                var x = 0\n                #l: while x == 0 {\n                    while true {\n                        x = 1\n                        continue #l\n                    }\n                    x = 2\n                }\n                <: x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_if::simple_break",
+      "program": "\n                <: #l: if true {\n                    break #l\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_if::break_with_value",
+      "program": "\n                <: #l: if true {\n                    break #l 1\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_match::simple_break",
+      "program": "\n                <: #l: match 0 {\n                    default => {\n                        break #l\n                        2\n                    }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_match::break_with_value",
+      "program": "\n                <: #l: match 0 {\n                    default => {\n                        break #l 1\n                        2\n                    }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_eval::simple_break",
+      "program": "\n                <: #l: eval {\n                    break #l\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_eval::break_with_value",
+      "program": "\n                <: #l: eval {\n                    break #l 1\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::continue_::labeled_eval::inner_while",
+      "program": "\n                <: #l: eval {\n                    while true {\n                        if true break #l 1\n                    }\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "jump_statements::label::invalid_statement",
+      "program": "#l: null",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::label::invalid_expression",
+      "program": "let a = #l: null",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::label::invalid_space#1",
+      "program": "# l: eval { null }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "jump_statements::label::invalid_space#2",
+      "program": "#l: eval { break # l }",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+// Math utilities module with metadata
+
+### {
+	name: "math_utils"
+	version: "2.0.0"
+	author: "Math Team"
+	description: "Basic mathematical utility functions"
+	tags: ["math", "utilities"]
+}
+
+let add = @(a, b) {
+    a + b
+}
+
+let subtract = @(a, b) {
+    a - b
+}
+
+let multiply = @(a, b) {
+    a * b
+}
+
+let divide = @(a, b) {
+    if (b == 0) {
+        Error:create("Division by zero")
+    } else {
+        a / b
+    }
+}
+
+

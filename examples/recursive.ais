@@ -1,0 +1,22 @@
+// Recursive function examples
+
+// Factorial
+@factorial(n) {
+  if n <= 1 { 
+    return 1 
+  }
+  return n * factorial(n - 1)
+}
+
+// Fibonacci
+@fibonacci(n) {
+  if n <= 1 { 
+    return n 
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+<: factorial(5)   // Should output: 120
+<: fibonacci(10)  // Should output: 55
+
+

@@ -1,0 +1,228 @@
+/// @ 0.16.0
+
+import ui_gtk
+
+var name = ""
+var width = 30
+var height = 20
+var clear_character = "."
+
+var grid = []
+
+@construct_screen(){
+
+	for (let i, height) {
+		let row = []
+		for (let i, width) {
+			row.push(clear_character)
+		}
+		grid.push(row)
+	}
+}
+construct_screen()
+
+@set_pixel(x, y, character){
+	if (x >= 0 && x < width && y >= 0 && y < height) {
+		grid[y][x] = character
+		return true
+	}
+	return false
+}
+
+@get_pixel(x, y, character){
+	if (x >= 0 && x < width && y >= 0 && y < height) {
+		return grid[y][x]
+	}
+	return ""
+}
+
+@clear_screen(){
+	for (let i, grid.len) {
+		let row = grid[i]
+		for (let j, row.len) {
+			set_pixel(j, i, clear_character)
+		}
+	}
+}
+
+@lengthen(arr){
+    let new_arr = []
+    for (let i, arr.len) {
+        for (let j, 2) {
+            new_arr.push(arr[i])
+        }
+    }
+    return new_arr
+}
+
+@render_frame(){
+	let components = []
+	for (let i, grid.len) {
+		let txt = Ui:C:text({
+			text: lengthen(grid[i]).join(""),
+			font: "monospace"
+		})
+		components.push(txt)
+	}
+	components
+}
+
+//-----------------------------LINE DRAWING FUNCTION-----------------------------
+@draw_line(x1, y1, x2, y2, character){
+	var current_x = x1
+	var current_y = y1
+	let dx = Math:abs(x2 - current_x)
+	let dy = Math:abs(y2 - current_y)
+	let sx = if (current_x < x2) {
+        1
+    } else {
+        -1
+    } 
+    
+	let sy = if (current_y < y2) {
+        1
+    } else {
+        -1
+    } 
+    
+	var err = dx - dy
+
+	for (let i, 1000000) {
+		set_pixel(current_x, current_y, character)
+		if (current_x == x2 && current_y == y2) {
+			break
+		}
+		let e2 = 2 * err
+		if (e2 > 0-dy) {
+			err -= dy
+			current_x += sx
+		}
+		if (e2 < dx) {
+			err += dx
+			current_y += sy
+		}
+	}
+}
+
+//-----------------------------3D CUBE-STUFF-STARTS-----------------------------
+@project_point(x, y, z) {
+    return project3Dto2D(x, y, z, 5, 0 - 5, 0 - 5)
+}
+
+// @project3Dto2D(x, y, z, cameraDistance) {
+//     // Perspective projection formula:
+//     // x2d = x * (cameraDistance / (z + cameraDistance))
+//     // y2d = y * (cameraDistance / (z + cameraDistance))
+//     let x2d = x * (cameraDistance / (z + cameraDistance))
+//     let y2d = y * (cameraDistance / (z + cameraDistance))
+//     var arr = []
+//     arr.push(Math:round(x2d))
+//     arr.push(Math:round(y2d))
+//     return arr
+// }
+
+@project3Dto2D(x, y, z, cameraDistance, cameraOffsetX, cameraOffsetY) {
+    // Adjusting the 3D point based on camera offset
+    let offsetX = x - cameraOffsetX
+    let offsetY = y - cameraOffsetY
+    
+    // Perspective projection formula:
+    let x2d = offsetX * (cameraDistance / (z + cameraDistance))
+    let y2d = offsetY * (cameraDistance / (z + cameraDistance))
+
+    var arr = []
+    arr.push(Math:round(x2d))
+    arr.push(Math:round(y2d))
+    return arr
+}
+
+
+
+
+@rotate_point_x(point, angle){
+    let y = point[1] * Math:cos(angle) - point[2] * Math:sin(angle)
+    let z = point[1] * Math:sin(angle) + point[2] * Math:cos(angle)
+    return [point[0], y, z]
+}
+
+@rotate_point_y(point, angle){
+    let x = point[0] * Math:cos(angle) + point[2] * Math:sin(angle)
+    let z = 0-point[0] * Math:sin(angle) + point[2] * Math:cos(angle)
+    return [x, point[1], z]
+}
+
+@rotate_point_z(point, angle){
+    let x = point[0] * Math:cos(angle) - point[1] * Math:sin(angle)
+    let y = point[0] * Math:sin(angle) + point[1] * Math:cos(angle)
+    return [x, y, point[2]]
+}
+
+@get_color(col) {
+    return [col, col, col].join("")
+}
+
+var angle = 0
+//-----------------------------GAME-LOOP-----------------------------
+@render_ui() {
+    clear_screen()
+    //render_cube_wireframe_frame()
+    // var point1 = project_point(1,1,4)
+    // var point2 = project_point(5,1,20)
+    
+
+    var s = 10
+    // Define the vertices of the cube in 3D space
+    var vertices = [
+        [1, 1, 1],  // Front top left
+        [s, 1, 1],  // Front top right
+        [s, s, 1],  // Front bottom right
+        [1, s, 1],  // Front bottom left
+        [1, 1, s],  // Back top left
+        [s, 1, s],  // Back top right
+        [s, s, s],  // Back bottom right
+        [1, s, s],   // Back bottom left
+
+
+        [1, 1, 1],  // Front top left
+        [1, 1, s],  // Back top left
+        [s, 1, 1],  // Front top right
+        [s, 1, s],  // Back top right
+        [s, s, 1],  // Front bottom right
+        [s, s, s],  // Back bottom right
+        [1, s, 1],  // Front bottom left
+        [1, s, s],   // Back bottom left
+    ]
+    
+    // Rotate the vertices around the x, y, and z axes
+    var rotated_vertices = []
+    for (let j, vertices.len) {
+        let vertex = vertices[j]
+        let rotated_x = rotate_point_y(vertex, angle)
+        //let rotated_y = rotate_point_y(rotated_x, angle)
+        //let rotated_z = rotate_point_z(rotated_y, angle)
+        rotated_vertices.push(rotated_x)
+    }
+    
+    // Project each rotated vertex onto the 2D screen and draw lines between them
+    for (let j, rotated_vertices.len) {
+        let p1 = rotated_vertices[j]
+        let p2 = rotated_vertices[(j + 1) % rotated_vertices.len]  // Wrap around to connect the last vertex to the first
+        let point1 = project_point(p1[0], p1[1], p1[2])
+        let point2 = project_point(p2[0], p2[1], p2[2])
+        //get_color(Math:round(p1[2]))
+        draw_line(point1[0], point1[1], point2[0], point2[1], "█")
+    }
+    // draw_line(point1[0],point1[1], point2[0], point2[1], "#")
+    let components = render_frame()
+    Ui:render(components)
+}
+
+@tick() {
+    render_ui()
+    angle = angle + 0.1
+}
+
+let cube_cancel = Async:interval(33, @() {
+    tick()
+})
+render_ui()

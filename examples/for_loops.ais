@@ -1,0 +1,35 @@
+// For loop with range (from, to)
+<: "Range loop 0 to 5:"
+for (let i = 0, 5) {
+  <: i
+}
+
+<: "Range loop 10 to 15:"
+for (let j = 10, 15) {
+  <: j
+}
+
+// For loop with times
+<: "Print 3 times:"
+for (3) {
+  <: "Hello!"
+}
+
+// For loop with expression
+var count = 4
+<: "Print count times:"
+for (count) {
+  <: "Looping"
+}
+
+// Nested for loops
+<: "Nested loops:"
+for (let x = 0, 3) {
+  for (let y = 0, 2) {
+    <: [x, y]
+  }
+}
+
+<: "Done!"
+
+

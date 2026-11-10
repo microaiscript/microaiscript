@@ -1,0 +1,44 @@
+// Variable type annotations
+let x: num = 42
+let name: str = "Alice"
+let flag: bool = true
+
+<: x
+<: name
+<: flag
+
+// Function with parameter and return type annotations
+@greet(name: str, age: num): str {
+    return `Hello {name}, you are {age} years old`
+}
+
+<: greet("Bob", 25)
+
+// Lambda with type annotations
+let add = @(a: num, b: num): num {
+    return a + b
+}
+
+<: add(10, 20)
+
+// Function with optional parameter and type
+@optional_demo(x: num, y: num?): num {
+    if (exists y) {
+        return x + y
+    } else {
+        return x
+    }
+}
+
+<: optional_demo(5, 3)
+<: optional_demo(5)
+
+// Function with default parameter and type
+@default_demo(x: num, y: num = 10): num {
+    return x * y
+}
+
+<: default_demo(5, 2)
+<: default_demo(5)
+
+<: "Done"

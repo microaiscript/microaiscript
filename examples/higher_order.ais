@@ -1,0 +1,17 @@
+// Higher-order function example
+@apply_twice(f, x) {
+  return f(f(x))
+}
+
+@increment(n) { 
+  return n + 1 
+}
+
+@double(n) {
+  return n * 2
+}
+
+<: apply_twice(increment, 5)  // Should output: 7
+<: apply_twice(double, 3)     // Should output: 12
+
+

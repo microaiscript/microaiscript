@@ -1,0 +1,36 @@
+// Test Date namespace functions
+
+<: "=== Date:now() ==="
+let now = Date:now()
+<: now
+<: Core:type(now)
+
+<: "=== Extract date components from timestamp ==="
+let timestamp = 1700000000000  // Nov 14, 2023 22:13:20 UTC
+<: "Year: " + Core:to_str(Date:year(timestamp))
+<: "Month: " + Core:to_str(Date:month(timestamp))
+<: "Day: " + Core:to_str(Date:day(timestamp))
+<: "Hour: " + Core:to_str(Date:hour(timestamp))
+<: "Minute: " + Core:to_str(Date:minute(timestamp))
+<: "Second: " + Core:to_str(Date:second(timestamp))
+<: "Millisecond: " + Core:to_str(Date:millisecond(timestamp))
+
+<: "=== Current date components (no argument) ==="
+<: "Current Year: " + Core:to_str(Date:year())
+<: "Current Month: " + Core:to_str(Date:month())
+<: "Current Day: " + Core:to_str(Date:day())
+
+<: "=== Date:parse() ==="
+let parsed1 = Date:parse("2024-01-15")
+<: "Parsed 2024-01-15: " + Core:to_str(parsed1)
+<: "Type: " + Core:type(parsed1)
+
+let parsed2 = Date:parse("2024-12-25T10:30:45")
+<: "Parsed 2024-12-25T10:30:45: " + Core:to_str(parsed2)
+
+<: "=== Date:to_iso_str() ==="
+<: "ISO string (UTC): " + Date:to_iso_str(timestamp)
+<: "ISO string (current time): " + Date:to_iso_str()
+
+<: "=== All Date functions working! ==="
+

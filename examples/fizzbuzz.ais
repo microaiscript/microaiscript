@@ -1,0 +1,17 @@
+// FizzBuzz example with elif
+var i = 1
+loop {
+    if (i > 20) break
+    
+    if (i % 15 == 0) {
+        <: "FizzBuzz"
+    } elif (i % 3 == 0) {
+        <: "Fizz"
+    } elif (i % 5 == 0) {
+        <: "Buzz"
+    } else {
+        <: i
+    }
+    
+    i = i + 1
+}

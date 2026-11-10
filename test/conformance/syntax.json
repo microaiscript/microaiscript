@@ -1,0 +1,2001 @@
+{
+  "module": "syntax",
+  "cases": [
+    {
+      "name": "syntax::terminator::top_level::newline",
+      "program": "\n                :: A {\n                    let x = 1\n                }\n                :: B {\n                    let x = 2\n                }\n                <: A:x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::terminator::top_level::semi_colon",
+      "program": "\n                ::A{let x = 1};::B{let x = 2}\n                <: A:x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::terminator::top_level::semi_colon_of_the_tail",
+      "program": "\n                ::A{let x = 1};\n                <: A:x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::terminator::block::newline",
+      "program": "\n                eval {\n                    let x = 1\n                    let y = 2\n                    <: x + y\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::terminator::block::semi_colon",
+      "program": "\n                eval{let x=1;let y=2;<:x+y}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::terminator::block::semi_colon_of_the_tail",
+      "program": "\n                eval{let x=1;<:x;}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::terminator::namespace::newline",
+      "program": "\n                :: A {\n                    let x = 1\n                    let y = 2\n                }\n                <: A:x + A:y\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::terminator::namespace::semi_colon",
+      "program": "\n                ::A{let x=1;let y=2}\n                <: A:x + A:y\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::terminator::namespace::semi_colon_of_the_tail",
+      "program": "\n                ::A{let x=1;}\n                <: A:x\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::separator::match_::multi_line",
+      "program": "\n                let x = 1\n                <: match x {\n                    case 1 => \"a\"\n                    case 2 => \"b\"\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::multi_line_with_comma",
+      "program": "\n                let x = 1\n                <: match x {\n                    case 1 => \"a\",\n                    case 2 => \"b\"\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::single_line",
+      "program": "\n                let x = 1\n                <:match x{case 1=>\"a\",case 2=>\"b\"}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::single_line_with_tail_comma",
+      "program": "\n                let x = 1\n                <: match x{case 1=>\"a\",case 2=>\"b\",}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::multi_line_default",
+      "program": "\n                let x = 3\n                <: match x {\n                    case 1 => \"a\"\n                    case 2 => \"b\"\n                    default => \"c\"\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "c"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::multi_line_with_comma_default",
+      "program": "\n                let x = 3\n                <: match x {\n                    case 1 => \"a\",\n                    case 2 => \"b\",\n                    default => \"c\"\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "c"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::single_line_default",
+      "program": "\n                let x = 3\n                <:match x{case 1=>\"a\",case 2=>\"b\",default=>\"c\"}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "c"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::single_line_with_tail_comma_default",
+      "program": "\n                let x = 3\n                <:match x{case 1=>\"a\",case 2=>\"b\",default=>\"c\",}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "c"
+      }
+    },
+    {
+      "name": "syntax::separator::match_::no_separator",
+      "program": "\n                let x = 1\n                <:match x{case 1=>\"a\" case 2=>\"b\"}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::separator::match_::no_separator_default",
+      "program": "\n                let x = 1\n                <:match x{case 1=>\"a\" default=>\"b\"}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::separator::call::multi_line",
+      "program": "\n                @f(a, b, c) {\n                    a * b + c\n                }\n                <: f(\n                    2\n                    3\n                    1\n                )\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 7.0
+      }
+    },
+    {
+      "name": "syntax::separator::call::multi_line_with_comma",
+      "program": "\n                @f(a, b, c) {\n                    a * b + c\n                }\n                <: f(\n                    2,\n                    3,\n                    1\n                )\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 7.0
+      }
+    },
+    {
+      "name": "syntax::separator::call::single_line",
+      "program": "\n                @f(a, b, c) {\n                    a * b + c\n                }\n                <:f(2,3,1)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 7.0
+      }
+    },
+    {
+      "name": "syntax::separator::call::single_line_with_tail_comma",
+      "program": "\n                @f(a, b, c) {\n                    a * b + c\n                }\n                <:f(2,3,1,)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 7.0
+      }
+    },
+    {
+      "name": "syntax::separator::obj::multi_line",
+      "program": "\n                let x = {\n                    a: 1\n                    b: 2\n                }\n                <: x.b\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::obj::multi_line_multi_newlines",
+      "program": "\n                let x = {\n\n                    a: 1\n\n                    b: 2\n\n                }\n                <: x.b\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::obj::multi_line_with_comma",
+      "program": "\n                let x = {\n                    a: 1,\n                    b: 2\n                }\n                <: x.b\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::obj::single_line",
+      "program": "\n                let x={a:1,b:2}\n                <: x.b\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::obj::single_line_with_tail_comma",
+      "program": "\n                let x={a:1,b:2,}\n                <: x.b\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::multi_line",
+      "program": "\n                let x = [\n                    1\n                    2\n                ]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::multi_line_multi_newlines",
+      "program": "\n                let x = [\n\n                    1\n\n                    2\n\n                ]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::multi_line_with_comma",
+      "program": "\n                let x = [\n                    1,\n                    2\n                ]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::multi_line_with_comma_multi_newlines",
+      "program": "\n                let x = [\n\n                    1,\n\n                    2\n\n                ]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::multi_line_with_comma_and_tail_comma",
+      "program": "\n                let x = [\n                    1,\n                    2,\n                ]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::multi_line_with_comma_and_tail_comma_multi_newlines",
+      "program": "\n                let x = [\n\n                    1,\n\n                    2,\n\n                ]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::single_line",
+      "program": "\n                let x=[1,2]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::arr::single_line_with_tail_comma",
+      "program": "\n                let x=[1,2,]\n                <: x[1]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::separator::function_params::single_line",
+      "program": "\n                @f(a, b) {\n                    a + b\n                }\n                <: f(1, 2)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::separator::function_params::single_line_with_tail_comma",
+      "program": "\n                @f(a, b, ) {\n                    a + b\n                }\n                <: f(1, 2)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::separator::function_params::multi_line",
+      "program": "\n                @f(\n                    a\n                    b\n                ) {\n                    a + b\n                }\n                <: f(1, 2)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::separator::function_params::multi_line_with_comma",
+      "program": "\n                @f(\n                    a,\n                    b\n                ) {\n                    a + b\n                }\n                <: f(1, 2)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::separator::function_params::multi_line_with_tail_comma",
+      "program": "\n                @f(\n                    a,\n                    b,\n                ) {\n                    a + b\n                }\n                <: f(1, 2)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::separator::function_params::destructuring_param",
+      "program": "\n                @f([a, b]) {\n                    a + b\n                }\n                <: f([1, 2])\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::comment::single_line_comment",
+      "program": "\n            // let a = ...\n            let a = 42\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::comment::multi_line_comment",
+      "program": "\n            /* variable declaration here...\n                let a = ...\n            */\n            let a = 42\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::comment::multi_line_comment_2",
+      "program": "\n            /* variable declaration here...\n                let a = ...\n            */\n            let a = 42\n            /*\n                another comment here\n            */\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::comment::double_slash_as_string",
+      "program": "\n            <: \"//\"\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "//"
+      }
+    },
+    {
+      "name": "syntax::comment::line_tail",
+      "program": "\n            let x = 'a' // comment\n            let y = 'b'\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a"
+      }
+    },
+    {
+      "name": "syntax::comment::invalid_eof_in_multi_line_comment",
+      "program": "\n            /* comment\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::comment::invalid_eof_in_multi_line_comment_2",
+      "program": "/* comment *",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::cannot_put_multiple_statements_in_a_line::var_def",
+      "program": "\n            let a = 42 let b = 11\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::cannot_put_multiple_statements_in_a_line::var_def_op",
+      "program": "\n            let a = 13 + 75 let b = 24 + 146\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::cannot_put_multiple_statements_in_a_line::var_def_in_block",
+      "program": "\n            eval {\n                let a = 42 let b = 11\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::variable_declaration::let_",
+      "program": "\n            let a = 42\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::variable_declaration::do_not_assign_to_let_issue_328",
+      "program": "\n            let hoge = 33\n            hoge = 4\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::variable_declaration::destructuring_declaration",
+      "program": "\n            let [a, { value: b }] = [1, { value: 2 }]\n            <: [a, b]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::variable_declaration::destructuring_declaration_with_shorthand",
+      "program": "\n            let { value } = { value: 1 }\n            <: value\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::variable_declaration::empty_function",
+      "program": "\n            @hoge() { }\n            <: hoge()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "syntax::variable_assignment::simple",
+      "program": "\n            var hoge = 25\n            hoge = 7\n            <: hoge\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 7.0
+      }
+    },
+    {
+      "name": "syntax::variable_assignment::destructuring_assingment",
+      "program": "\n            var hoge = 'foo'\n            var fuga = { value: 'bar' }\n            [{ value: hoge }, fuga] = [fuga, hoge]\n            <: [hoge, fuga]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "bar"
+          },
+          {
+            "type": "str",
+            "value": "foo"
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::variable_assignment::eval_left_hand_once::add",
+      "program": "\n                var index = -1\n                let array = [0, 0]\n                array[eval { index += 1; index }] += 1\n                <: array\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::variable_assignment::eval_left_hand_once::sub",
+      "program": "\n                var index = -1\n                let array = [0, 0]\n                array[eval { index += 1; index }] -= 1\n                <: array\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": -1.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::for_::basic",
+      "program": "\n            var count = 0\n            for (let i, 10) {\n                count += i + 1\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 55.0
+      }
+    },
+    {
+      "name": "syntax::for_::initial_value",
+      "program": "\n            var count = 0\n            for (let i = 2, 10) {\n                count += i\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 65.0
+      }
+    },
+    {
+      "name": "syntax::for_::without_iterator",
+      "program": "\n            var count = 0\n            for (10) {\n                count = (count + 1)\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 10.0
+      }
+    },
+    {
+      "name": "syntax::for_::without_brackets",
+      "program": "\n            var count = 0\n            for let i, 10 {\n                count = (count + i)\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 45.0
+      }
+    },
+    {
+      "name": "syntax::for_::break_",
+      "program": "\n            var count = 0\n            for (let i, 20) {\n                if (i == 11) break\n                count += i\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 55.0
+      }
+    },
+    {
+      "name": "syntax::for_::continue_",
+      "program": "\n            var count = 0\n            for (let i, 10) {\n                if (i == 5) continue\n                count = (count + 1)\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 9.0
+      }
+    },
+    {
+      "name": "syntax::for_::single_statement",
+      "program": "\n            var count = 0\n            for 10 count += 1\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 10.0
+      }
+    },
+    {
+      "name": "syntax::for_::var_name_without_space",
+      "program": "\n            for (leti, 10) {\n                <: i\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::each::standard",
+      "program": "\n            let msgs = []\n            each let item, [\"ai\", \"chan\", \"kawaii\"] {\n                msgs.push([item, \"!\"].join())\n            }\n            <: msgs\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai!"
+          },
+          {
+            "type": "str",
+            "value": "chan!"
+          },
+          {
+            "type": "str",
+            "value": "kawaii!"
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::each::destructuring_declaration",
+      "program": "\n            each let { value: a }, [{ value: 1 }] {\n                <: a\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::each::break_",
+      "program": "\n            let msgs = []\n            each let item, [\"ai\", \"chan\", \"kawaii\", \"yo\"] {\n                if (item == \"kawaii\") break\n                msgs.push([item, \"!\"].join())\n            }\n            <: msgs\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai!"
+          },
+          {
+            "type": "str",
+            "value": "chan!"
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::each::single_statement",
+      "program": "\n            let msgs = []\n            each let item, [\"ai\", \"chan\", \"kawaii\"] msgs.push([item, \"!\"].join())\n            <: msgs\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai!"
+          },
+          {
+            "type": "str",
+            "value": "chan!"
+          },
+          {
+            "type": "str",
+            "value": "kawaii!"
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::each::var_name_without_space",
+      "program": "\n            each letitem, [\"ai\", \"chan\", \"kawaii\"] {\n                <: item\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::each::with_label",
+      "program": "\n            let msgs = []\n            #label: each let item, [\"ai\", \"chan\", \"kawaii\"] {\n                msgs.push([item, \"!\"].join())\n            }\n            <: msgs\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai!"
+          },
+          {
+            "type": "str",
+            "value": "chan!"
+          },
+          {
+            "type": "str",
+            "value": "kawaii!"
+          }
+        ]
+      }
+    },
+    {
+      "name": "syntax::while_::basic",
+      "program": "\n            var count = 0\n            while count < 42 {\n                count += 1\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::while_::start_false",
+      "program": "\n            while false {\n                <: 'hoge'\n            }\n            <: 42\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::while_::with_label",
+      "program": "\n            var count = 0\n            #label: while count < 42 {\n                count += 1\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::do_while::basic",
+      "program": "\n            var count = 0\n            do {\n                count += 1\n            } while count < 42\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::do_while::start_false",
+      "program": "\n            do {\n                <: 'hoge'\n            } while false\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "hoge"
+      }
+    },
+    {
+      "name": "syntax::do_while::with_label",
+      "program": "\n            var count = 0\n            do {\n                count += 1\n            } while count < 42\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "syntax::loop_::basic",
+      "program": "\n            var count = 0\n            loop {\n                if (count == 10) break\n                count = (count + 1)\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 10.0
+      }
+    },
+    {
+      "name": "syntax::loop_::with_continue",
+      "program": "\n            var a = [\"ai\", \"chan\", \"kawaii\", \"yo\", \"!\"]\n            var b = []\n            loop {\n                var x = a.shift()\n                if (x == \"chan\") continue\n                if (x == \"yo\") break\n                b.push(x)\n            }\n            <: b\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai"
+          },
+          {
+            "type": "str",
+            "value": "kawaii"
+          }
+        ]
+      },
+      "skip_vm": true,
+      "skip_interpreter": true
+    },
+    {
+      "name": "syntax::loop_::with_label",
+      "program": "\n            var count = 0\n            #label: loop {\n                if (count == 10) break\n                count = (count + 1)\n            }\n            <: count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 10.0
+      }
+    },
+    {
+      "name": "syntax::namespace::standard",
+      "program": "\n            <: Foo:bar()\n\n            :: Foo {\n                @bar() { \"ai\" }\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "syntax::namespace::self_ref",
+      "program": "\n            <: Foo:bar()\n\n            :: Foo {\n                let ai = \"kawaii\"\n                @bar() { ai }\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::namespace::cannot_declare_mutable_variable",
+      "program": "\n            :: Foo {\n                var ai = \"kawaii\"\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::namespace::cannot_destructuring_declaration",
+      "program": "\n            :: Foo {\n                let [a, b] = [1, 2]\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::namespace::nested",
+      "program": "\n            <: Foo:Bar:baz()\n\n            :: Foo {\n                :: Bar {\n                    @baz() { \"ai\" }\n                }\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "syntax::namespace::nested_ref",
+      "program": "\n            <: Foo:baz\n\n            :: Foo {\n                let baz = Bar:ai\n                :: Bar {\n                    let ai = \"kawaii\"\n                }\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::operators::eq#1",
+      "program": "<: (1 == 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::eq#2",
+      "program": "<: (1 == 2)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::eq#3",
+      "program": "<: (Core:type == Core:type)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::eq#4",
+      "program": "<: (Core:type == Core:gt)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::eq#5",
+      "program": "<: (@(){} == @(){})",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::eq#6",
+      "program": "<: (Core:eq == @(){})",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::eq#7",
+      "program": "\n            let f = @(){}\n            let g = f\n\n            <: (f == g)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::neq#1",
+      "program": "<: (1 != 2)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::neq#2",
+      "program": "<: (1 != 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::and#1",
+      "program": "<: (true && true)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::and#2",
+      "program": "<: (true && false)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::and#3",
+      "program": "<: (false && true)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::and#4",
+      "program": "<: (false && false)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::and#5",
+      "program": "<: (false && null)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::and#6",
+      "program": "<: (true && null)",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::operators::and#7",
+      "program": "\n            var tmp = null\n\n            @func() {\n                tmp = true\n                return true\n            }\n\n            false && func()\n\n            <: tmp\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "syntax::operators::and#8",
+      "program": "\n            var tmp = null\n\n            @func() {\n                tmp = true\n                return true\n            }\n\n            true && func()\n\n            <: tmp\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::or#1",
+      "program": "<: (true || true)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::or#2",
+      "program": "<: (true || false)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::or#3",
+      "program": "<: (false || true)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::or#4",
+      "program": "<: (false || false)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::or#5",
+      "program": "<: (true || null)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::or#6",
+      "program": "<: (false || null)",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::operators::or#7",
+      "program": "\n            var tmp = null\n\n            @func() {\n                tmp = true\n                return true\n            }\n\n            true || func()\n\n            <: tmp\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "syntax::operators::or#8",
+      "program": "\n            var tmp = null\n\n            @func() {\n                tmp = true\n                return true\n            }\n\n            false || func()\n\n            <: tmp\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::add",
+      "program": "<: (1 + 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::operators::sub",
+      "program": "<: (1 - 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "syntax::operators::mul",
+      "program": "<: (1 * 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::operators::pow",
+      "program": "<: (1 ^ 0)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::operators::div",
+      "program": "<: (1 / 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::operators::mod_",
+      "program": "<: (1 % 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "syntax::operators::gt#1",
+      "program": "<: (2 > 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::gt#2",
+      "program": "<: (1 > 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::gt#3",
+      "program": "<: (0 > 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::lt#1",
+      "program": "<: (2 < 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::lt#2",
+      "program": "<: (1 < 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::lt#3",
+      "program": "<: (0 < 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::gteq#1",
+      "program": "<: (2 >= 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::gteq#2",
+      "program": "<: (1 >= 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::gteq#3",
+      "program": "<: (0 >= 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::lteq#1",
+      "program": "<: (2 <= 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::operators::lteq#2",
+      "program": "<: (1 <= 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::lteq#3",
+      "program": "<: (0 <= 1)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::precedence#1",
+      "program": "<: 1 + 2 * 3 + 4",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 11.0
+      }
+    },
+    {
+      "name": "syntax::operators::precedence#2",
+      "program": "<: 1 + 4 / 4 + 1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::operators::precedence#3",
+      "program": "<: 1 + 1 == 2 && 2 * 2 == 4",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::precedence#4",
+      "program": "<: (1 + 1) * 2",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 4.0
+      }
+    },
+    {
+      "name": "syntax::operators::negative_numbers#1",
+      "program": "<: 1+-1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "syntax::operators::negative_numbers#2",
+      "program": "<: 1--1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::operators::negative_numbers#3",
+      "program": "<: -1*-1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::operators::negative_numbers#4",
+      "program": "<: -1==-1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::negative_numbers#5",
+      "program": "<: 1>-1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::operators::negative_numbers#6",
+      "program": "<: -1<1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::plus::basic",
+      "program": "\n            let a = 1\n            <: +a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "syntax::minus::basic",
+      "program": "\n            let a = 1\n            <: -a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": -1.0
+      }
+    },
+    {
+      "name": "syntax::not::basic",
+      "program": "\n            <: !true\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "syntax::infix_expression::simple_infix_expression#1",
+      "program": "<: 0 < 1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "syntax::infix_expression::simple_infix_expression#2",
+      "program": "<: 1 + 1",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::combination#1",
+      "program": "<: 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 55.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::combination#2",
+      "program": "<: Core:add(1, 3) * Core:mul(2, 5)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 40.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::use_parentheses_to_distinguish_expr",
+      "program": "<: (1 + 10) * (2 + 5)",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 77.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::syntax_symbols_vs_infix_operators",
+      "program": "\n            <: match true {\n                case 1 == 1 => \"true\"\n                case 1 < 1 => \"false\"\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "true"
+      }
+    },
+    {
+      "name": "syntax::infix_expression::number_if_expression",
+      "program": "<: 1 + if true 1 else 2",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::number_match_expression",
+      "program": "\n            <: 1 + match 2 == 2 {\n                case true => 3\n                case false => 4\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 4.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::eval_eval",
+      "program": "<: eval { 1 } + eval { 1 }",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::disallow_line_break",
+      "program": "\n            <: 1 +\n            1 + 1\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "syntax::infix_expression::escaped_line_break",
+      "program": "\n            <: 1 + \\\n            1 + 1\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::infix_expression::infix_to_fncall_on_namespace",
+      "program": "\n            :: Hoge {\n                @add(x, y) {\n                    x + y\n                }\n            }\n            <: Hoge:add(1, 2)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::if_::if_#1",
+      "program": "\n            var msg = \"ai\"\n            if true {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::if_::if_#2",
+      "program": "\n            var msg = \"ai\"\n            if false {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "syntax::if_::else_#1",
+      "program": "\n            var msg = null\n            if true {\n                msg = \"ai\"\n            } else {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "syntax::if_::else_#2",
+      "program": "\n            var msg = null\n            if false {\n                msg = \"ai\"\n            } else {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::if_::elif#1",
+      "program": "\n            var msg = \"bebeyo\"\n            if false {\n                msg = \"ai\"\n            } elif true {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::if_::elif#2",
+      "program": "\n            var msg = \"bebeyo\"\n            if false {\n                msg = \"ai\"\n            } elif false {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "bebeyo"
+      }
+    },
+    {
+      "name": "syntax::if_::if_elif_else#1",
+      "program": "\n            var msg = null\n            if false {\n                msg = \"ai\"\n            } elif true {\n                msg = \"chan\"\n            } else {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "chan"
+      }
+    },
+    {
+      "name": "syntax::if_::if_elif_else#2",
+      "program": "\n            var msg = null\n            if false {\n                msg = \"ai\"\n            } elif false {\n                msg = \"chan\"\n            } else {\n                msg = \"kawaii\"\n            }\n            <: msg\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::if_::expr#1",
+      "program": "\n            <: if true \"ai\" else \"kawaii\"\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "syntax::if_::expr#2",
+      "program": "\n            <: if false \"ai\" else \"kawaii\"\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "syntax::eval::returns_value",
+      "program": "\n            let foo = eval {\n                let a = 1\n                let b = 2\n                (a + b)\n            }\n\n            <: foo\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::match_::basic",
+      "program": "\n            <: match 2 {\n                case 1 => \"a\"\n                case 2 => \"b\"\n                case 3 => \"c\"\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "b"
+      }
+    },
+    {
+      "name": "syntax::match_::when_default_not_provided_returns_null",
+      "program": "\n            <: match 42 {\n                case 1 => \"a\"\n                case 2 => \"b\"\n                case 3 => \"c\"\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "syntax::match_::with_default",
+      "program": "\n            <: match 42 {\n                case 1 => \"a\"\n                case 2 => \"b\"\n                case 3 => \"c\"\n                default => \"d\"\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "d"
+      }
+    },
+    {
+      "name": "syntax::match_::with_block",
+      "program": "\n            <: match 2 {\n                case 1 => 1\n                case 2 => {\n                    let a = 1\n                    let b = 2\n                    (a + b)\n                }\n                case 3 => 3\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "syntax::match_::with_return",
+      "program": "\n            @f(x) {\n                match x {\n                    case 1 => {\n                        return \"ai\"\n                    }\n                }\n                \"foo\"\n            }\n            <: f(1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "syntax::match_::scope#1",
+      "program": "\n            match 1 { case 1 => let a = 1 }\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::match_::scope#2",
+      "program": "\n            match 1 { default => let a = 1 }\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "syntax::exists::basic",
+      "program": "\n            let foo = null\n            <: [(exists foo), (exists bar)]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    }
+  ]
+}

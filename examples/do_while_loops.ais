@@ -1,0 +1,29 @@
+// Do-while loop examples
+
+<: "Do-while loop (count to 5):"
+var i = 1
+do {
+    <: i
+    i = i + 1
+} while (i <= 5)
+
+<: ""
+<: "Do-while with false condition (runs once):"
+var j = 1
+do {
+    <: "Executed once!"
+    j = j + 1
+} while (false)
+
+<: ""
+<: "Do-while with break:"
+var k = 1
+do {
+    if (k > 3) break
+    <: k
+    k = k + 1
+} while (k <= 10)
+
+<: ""
+<: "Done!"
+

@@ -1,0 +1,22 @@
+
+/// @ 0.16.0
+
+@show() {
+	Ui:render([
+		Ui:C:container({
+			align: 'center'
+			children: [
+				
+	Ui:C:button({
+			text: "Click to say hi"
+			onClick: @() {
+				Mk:dialog(`hi`, `Hello World!`)
+			}
+		})
+			]
+		})
+	])
+
+}
+
+show()

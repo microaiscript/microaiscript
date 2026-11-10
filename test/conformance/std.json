@@ -1,0 +1,3044 @@
+{
+  "module": "std",
+  "cases": [
+    {
+      "name": "std::core::range#1",
+      "program": "<: Core:range(1, 10)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 4.0
+          },
+          {
+            "type": "num",
+            "value": 5.0
+          },
+          {
+            "type": "num",
+            "value": 6.0
+          },
+          {
+            "type": "num",
+            "value": 7.0
+          },
+          {
+            "type": "num",
+            "value": 8.0
+          },
+          {
+            "type": "num",
+            "value": 9.0
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::core::range#2",
+      "program": "<: Core:range(1, 1)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::core::range#3",
+      "program": "<: Core:range(9, 7)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 9.0
+          },
+          {
+            "type": "num",
+            "value": 8.0
+          },
+          {
+            "type": "num",
+            "value": 7.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::core::to_str#1",
+      "program": "<: Core:to_str(\"abc\")",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "abc"
+      }
+    },
+    {
+      "name": "std::core::to_str#2",
+      "program": "<: Core:to_str(123)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "123"
+      }
+    },
+    {
+      "name": "std::core::to_str#3",
+      "program": "<: Core:to_str(true)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "true"
+      }
+    },
+    {
+      "name": "std::core::to_str#4",
+      "program": "<: Core:to_str(false)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "false"
+      }
+    },
+    {
+      "name": "std::core::to_str#5",
+      "program": "<: Core:to_str(null)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "null"
+      }
+    },
+    {
+      "name": "std::core::to_str#6",
+      "program": "<: Core:to_str({ a: \"abc\", b: 1234 })",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "{ a: \"abc\", b: 1234 }"
+      }
+    },
+    {
+      "name": "std::core::to_str#7",
+      "program": "<: Core:to_str([ true, 123, null ])",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "[ true, 123, null ]"
+      }
+    },
+    {
+      "name": "std::core::to_str#8",
+      "program": "<: Core:to_str(@( a, b, c ) {})",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "@( a, b, c ) { ... }"
+      }
+    },
+    {
+      "name": "std::core::to_str#9",
+      "program": "\n            let arr = []\n            arr.push(arr)\n            <: Core:to_str(arr)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "[ ... ]"
+      },
+      "skip_interpreter": true
+    },
+    {
+      "name": "std::core::to_str#10",
+      "program": "\n            let arr = []\n            arr.push({ value: arr })\n            <: Core:to_str(arr)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "[ { value: ... } ]"
+      },
+      "skip_interpreter": true
+    },
+    {
+      "name": "std::core::abort",
+      "program": "Core:abort(\"hoge\")",
+      "tags": [
+        "stdlib"
+      ],
+      "expect_error": "runtime",
+      "skip_interpreter": true
+    },
+    {
+      "name": "std::arr::create#1",
+      "program": "<: Arr:create(0)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "std::arr::create#2",
+      "program": "<: Arr:create(3)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::arr::create#3",
+      "program": "<: Arr:create(3, 1)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::math::trig#1",
+      "program": "<: Math:sin(Math:PI / 2)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "std::math::trig#2",
+      "program": "<: Math:sin(0 - (Math:PI / 2))",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": -1.0
+      }
+    },
+    {
+      "name": "std::math::trig#3",
+      "program": "<: Math:sin(Math:PI / 4) * Math:cos(Math:PI / 4)",
+      "tags": [
+        "stdlib"
+      ],
+      "skip_interpreter": true,
+      "skip_vm": true,
+      "extract_error": "no assert_eq"
+    },
+    {
+      "name": "std::math::abs",
+      "program": "<: Math:abs(1 - 6)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 5.0
+      }
+    },
+    {
+      "name": "std::math::pow_and_sqrt",
+      "program": "<: Math:sqrt(3^2 + 4^2)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 5.0
+      }
+    },
+    {
+      "name": "std::math::round#1",
+      "program": "<: Math:round(3.14)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "std::math::round#2",
+      "program": "<: Math:round(-1.414213)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": -1.0
+      }
+    },
+    {
+      "name": "std::math::ceil#1",
+      "program": "<: Math:ceil(2.71828)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "std::math::ceil#2",
+      "program": "<: Math:ceil(0 - Math:PI)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": -3.0
+      }
+    },
+    {
+      "name": "std::math::ceil#3",
+      "program": "<: Math:ceil(1 / Math:Infinity)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.0
+      }
+    },
+    {
+      "name": "std::math::floor#1",
+      "program": "<: Math:floor(23.14069)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 23.0
+      }
+    },
+    {
+      "name": "std::math::floor#2",
+      "program": "<: Math:floor(Math:Infinity / 0)",
+      "tags": [
+        "stdlib"
+      ],
+      "extract_error": "expected ) after num(",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "std::math::min",
+      "program": "<: Math:min(2, 3)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "std::math::max",
+      "program": "<: Math:max(-2, -3)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": -2.0
+      }
+    },
+    {
+      "name": "std::math::rnd_with_arg",
+      "program": "<: Math:rnd(1, 1.5)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "std::math::gen_rng#1",
+      "program": "\n            @test(seed1, seed2) {\n                let n = 100\n                let max = 100000\n                let threshold = 0.05\n                let random1 = Math:gen_rng(seed1)\n                let random2 = Math:gen_rng(seed2)\n                var same = 0\n                for n {\n                    if random1(1, max) == random2(1, max) {\n                        same += 1\n                    }\n                }\n                let rate = same / n\n                if seed1 == seed2 { rate == 1 }\n                else { rate < threshold }\n            }\n            let seed1 = `{Util:uuid()}`\n            let seed2 = `{Date:year()}`\n            <: [\n                test(seed1, seed1)\n                test(seed1, seed2)\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::math::gen_rng#2",
+      "program": "\n            @test(seed1, seed2) {\n                let n = 100\n                let max = 100000\n                let threshold = 0.05\n                let random1 = Math:gen_rng(seed1)\n                let random2 = Math:gen_rng(seed2)\n                var same = 0\n                for n {\n                    if random1(1, max) == random2(1, max) {\n                        same += 1\n                    }\n                }\n                let rate = same / n\n                if seed1 == seed2 { rate == 1 }\n                else { rate < threshold }\n            }\n            let seed1 = 3.0\n            let seed2 = 3.0000000000000004\n            <: [\n                test(seed1, seed1)\n                test(seed1, seed2)\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::math::gen_rng#3",
+      "program": "Math:gen_rng(null)",
+      "tags": [
+        "stdlib"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "std::math::gen_rng#4",
+      "program": "\n            <: [\"ai\", \"👍🏽🍆🌮\", 42, -0.12].map(@(seed) {\n                [\n                    null\n                    {algorithm: \"chacha20\"}\n                    {algorithm: \"chacha20\", chacha20_number_seed_legacy_behavior: true}\n                    {algorithm: \"rc4\"}\n                    {algorithm: \"rc4_legacy\"}\n                ].map(@(options) {\n                    [[null, null], [0, 10000]].map(@(args) {\n                        let rng = if options != null {\n                          Math:gen_rng(seed, options)\n                        } else {\n                          Math:gen_rng(seed)\n                        }\n                        let result = []\n                        for 10 {\n                            result.push(rng(args[0], args[1]))\n                        }\n                        result\n                    })\n                })\n            })\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.9522313273998938
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.157311387592687
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3808835685435835
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9527526716026183
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6877129153536835
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7029341236519296
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6563772673880722
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9290612890051076
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7671812917264167
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7613553489274978
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 8892.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9160.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2577.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7839.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9593.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6240.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4822.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9815.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1754.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2078.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.9522313273998938
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.157311387592687
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3808835685435835
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9527526716026183
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6877129153536835
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7029341236519296
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6563772673880722
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9290612890051076
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7671812917264167
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7613553489274978
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 8892.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9160.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2577.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7839.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9593.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6240.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4822.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9815.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1754.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2078.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.9522313273998938
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.157311387592687
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3808835685435835
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9527526716026183
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6877129153536835
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7029341236519296
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6563772673880722
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9290612890051076
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7671812917264167
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7613553489274978
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 8892.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9160.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2577.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7839.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9593.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6240.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4822.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9815.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1754.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2078.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.3918487679914174
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.49612542958789424
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7684297416081407
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.21775697119876608
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3058367971077552
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.2767969751830176
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8547817961904522
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6042791647837444
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7811502995575069
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.57021387570539
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 4316.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6880.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5132.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4143.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8114.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 132.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 949.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3567.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 303.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8047.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.43852999322126746
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8817787644203001
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.4995854530677725
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7178449229747838
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7430381189910698
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.32146160279166847
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6412789985363597
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8547970547462124
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3987127958337033
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8605570778668624
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 4385.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8818.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4996.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7179.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7431.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3214.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6413.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8548.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3987.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8606.0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.01658515362611132
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.40211525808984927
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5416933861007267
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9652372121672298
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9943497429151748
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.03290852032834708
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3075534222881005
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9323756828284806
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7118891994071928
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6047536199660608
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 5909.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4027.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8877.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5337.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1693.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8738.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2301.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5095.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6822.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9069.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.01658515362611132
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.40211525808984927
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5416933861007267
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9652372121672298
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9943497429151748
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.03290852032834708
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3075534222881005
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9323756828284806
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7118891994071928
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6047536199660608
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 5909.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4027.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8877.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5337.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1693.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8738.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2301.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5095.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6822.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9069.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.01658515362611132
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.40211525808984927
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5416933861007267
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9652372121672298
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9943497429151748
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.03290852032834708
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3075534222881005
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9323756828284806
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7118891994071928
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6047536199660608
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 5909.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4027.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8877.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5337.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1693.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8738.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2301.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5095.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6822.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9069.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.785901577584311
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8581770053926902
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.39279265728812507
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.42995532689596705
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8237803317852699
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.40854037448894154
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9018411110779502
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.1246844544394192
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.2263238136007084
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.0661723643559127
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 7408.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8550.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3126.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5583.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7999.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5357.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4170.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9091.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3225.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5684.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.7634826614159379
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9814352981017643
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7122064384307634
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.19849161859342623
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.43077588526244975
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8899309964673247
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.587528000034823
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.06201019022786278
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9184540672201553
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3591342686183971
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 7635.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9815.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7122.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1985.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4308.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8900.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5875.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 620.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9185.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3591.0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.3900426548095348
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.08515097961982344
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.32710240729179996
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.19291286032499458
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6584090738680834
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.634180356163491
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8304177952365436
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.33722997819744294
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.17470509339869209
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9948637088923301
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 4696.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8406.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6188.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3013.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5012.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6319.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4812.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3032.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4073.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9055.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.3900426548095348
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.08515097961982344
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.32710240729179996
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.19291286032499458
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6584090738680834
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.634180356163491
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8304177952365436
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.33722997819744294
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.17470509339869209
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9948637088923301
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 4696.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8406.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6188.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3013.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5012.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6319.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4812.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3032.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4073.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9055.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.3582586927375501
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.019206453806487965
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6044005114943116
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.06933935753438714
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6064448575752989
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.1713002060360721
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8591720709605983
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7957404008540241
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5609916707024384
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9070083696790407
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 7732.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9438.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8102.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3672.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1136.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5891.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1856.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9935.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1407.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9134.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.8695755235155893
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5645109226444853
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9910554516954708
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.14484532954921459
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.40017802949770215
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8740010123230115
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6320973510631253
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.2377727506114171
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7435184728391848
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5954728937200902
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 6329.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7543.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9248.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6243.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7807.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6426.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9560.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2373.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4429.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1103.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.00701751618236155
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.17185490054868188
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.967001069269818
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.4077816952668805
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.922687842759339
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7869285107049383
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.873204273355561
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6298147295125774
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.23825186137402535
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.34274772768400263
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 70.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1718.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9670.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4078.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9227.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7870.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8732.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6298.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2382.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3427.0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.20789063739852662
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5515801296852669
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8602687843260233
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5078228623716351
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9279083097419194
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9658646731821696
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3115872919847804
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.09283929980057701
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.30940603534094757
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.46543072210339276
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 7276.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2097.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3604.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2377.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3350.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7371.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9421.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1707.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 43.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 461.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.20789063739852662
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5515801296852669
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8602687843260233
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5078228623716351
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9279083097419194
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9658646731821696
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3115872919847804
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.09283929980057701
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.30940603534094757
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.46543072210339276
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 7276.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2097.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3604.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2377.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3350.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7371.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9421.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1707.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 43.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 461.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.7030147638265518
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8910625923471456
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.49960942726392166
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5028878135621331
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.30439784844478524
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.4507681928982245
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.3815911306991666
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5745189357866595
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.10187935040528222
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7601333172603988
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 8064.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8911.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9324.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 3106.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 4535.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 671.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6793.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7731.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 706.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 285.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.12804382060971414
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.1348380245197581
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.600869126584787
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7363981406253993
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6075140094218262
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.693848055489433
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8968020135686416
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.33188423574857273
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.29629555610425584
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.29239040461391297
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 4013.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8495.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9544.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 2038.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9642.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1907.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8578.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1638.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 428.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1488.0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 0.711898436183017
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.7412539463637078
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.13643077524750266
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.8226574810275145
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5185058185204597
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.525804126337512
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.6277132421410834
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.5816253487951227
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.9622246210896411
+                      },
+                      {
+                        "type": "num",
+                        "value": 0.026768397880120472
+                      }
+                    ]
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 7119.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 7413.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 1364.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 8227.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5185.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5258.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6277.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 5816.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 9623.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 267.0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::math::gen_rng_number_seed#1",
+      "program": "\n            let o = { a: 1, b: 2, c: 3, }\n\n            <: Obj:keys(o)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "a"
+          },
+          {
+            "type": "str",
+            "value": "b"
+          },
+          {
+            "type": "str",
+            "value": "c"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::math::gen_rng_number_seed#2",
+      "program": "\n            let o = { _nul: null, _num: 24, _str: 'hoge', _arr: [], _obj: {}, }\n\n            <: Obj:vals(o)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "extract_error": "expected , or ] in array",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "std::math::gen_rng_number_seed#3",
+      "program": "\n            let o = { a: 1, b: 2, c: 3, }\n\n            <: Obj:kvs(o)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "str",
+                "value": "a"
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "str",
+                "value": "b"
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "str",
+                "value": "c"
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::math::gen_rng_number_seed#4",
+      "program": "\n            let o1 = { a: 1, b: 2 }\n            let o2 = { b: 3, c: 4 }\n\n            <: Obj:merge(o1, o2)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          },
+          "b": {
+            "type": "num",
+            "value": 3.0
+          },
+          "c": {
+            "type": "num",
+            "value": 4.0
+          }
+        }
+      }
+    },
+    {
+      "name": "std::math::gen_rng_should_reject_when_null_is_provided_as_a_seed",
+      "program": "\n            let o = { a: 1, b: 2, c: 3 }\n\n            <: Obj:pick(o, ['b', 'd'])\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "b": {
+            "type": "num",
+            "value": 2.0
+          },
+          "d": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "name": "std::math::gen_rng_reproducibility",
+      "program": "\n            let kvs = [['a', 1], ['b', 2], ['c', 3]]\n\n            <: Obj:from_kvs(kvs)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          },
+          "b": {
+            "type": "num",
+            "value": 2.0
+          },
+          "c": {
+            "type": "num",
+            "value": 3.0
+          }
+        }
+      }
+    },
+    {
+      "name": "std::obj::keys",
+      "program": "\n            <: Str:lf\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "\n"
+      }
+    },
+    {
+      "name": "std::obj::vals",
+      "program": "\n                <: [Str:lt(\"👈\", \"！\"), Str:lt(\"👈\", \"👈\"), Str:lt(\"！\", \"👈\")]\n                ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": -1.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::obj::kvs",
+      "program": "\n                <: [Str:gt(\"👈\", \"！\"), Str:gt(\"👈\", \"👈\"), Str:gt(\"！\", \"👈\")]\n                ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": -1.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::obj::merge",
+      "program": "\n            <: Str:from_codepoint(65)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "A"
+      }
+    },
+    {
+      "name": "std::obj::pick",
+      "program": "\n            <: Str:from_unicode_codepoints([171581, 128073, 127999, 128104, 8205, 128102])\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "𩸽👉🏿👨‍👦"
+      }
+    },
+    {
+      "name": "std::obj::from_kvs",
+      "program": "\n            <: Str:from_utf8_bytes([240, 169, 184, 189, 240, 159, 145, 137, 240, 159, 143, 191, 240, 159, 145, 168, 226, 128, 141, 240, 159, 145, 166])\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "𩸽👉🏿👨‍👦"
+      }
+    },
+    {
+      "name": "std::str::lf",
+      "program": "\n            <: \"aiscript\".split().map(@(x, _) { x.charcode_at(0) })\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 97.0
+          },
+          {
+            "type": "num",
+            "value": 105.0
+          },
+          {
+            "type": "num",
+            "value": 115.0
+          },
+          {
+            "type": "num",
+            "value": 99.0
+          },
+          {
+            "type": "num",
+            "value": 114.0
+          },
+          {
+            "type": "num",
+            "value": 105.0
+          },
+          {
+            "type": "num",
+            "value": 112.0
+          },
+          {
+            "type": "num",
+            "value": 116.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::str::lt",
+      "program": "\n            <: \"\".charcode_at(0)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "std::str::gt",
+      "program": "\n            <: Uri:encode_full(\"https://example.com/?q=あいちゃん\")\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "https://example.com/?q=%E3%81%82%E3%81%84%E3%81%A1%E3%82%83%E3%82%93"
+      }
+    },
+    {
+      "name": "std::str::from_codepoint",
+      "program": "\n            <: Uri:encode_component(\"https://example.com/?q=あいちゃん\")\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "https%3A%2F%2Fexample.com%2F%3Fq%3D%E3%81%82%E3%81%84%E3%81%A1%E3%82%83%E3%82%93"
+      }
+    },
+    {
+      "name": "std::str::from_unicode_codepoints",
+      "program": "\n            <: Uri:decode_full(\"https%3A%2F%2Fexample.com%2F%3Fq%3D%E3%81%82%E3%81%84%E3%81%A1%E3%82%83%E3%82%93\")\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "https%3A%2F%2Fexample.com%2F%3Fq%3Dあいちゃん"
+      }
+    },
+    {
+      "name": "std::str::from_utf8_bytes",
+      "program": "\n            <: Uri:decode_component(\"https%3A%2F%2Fexample.com%2F%3Fq%3D%E3%81%82%E3%81%84%E3%81%A1%E3%82%83%E3%82%93\")\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "https://example.com/?q=あいちゃん"
+      }
+    },
+    {
+      "name": "std::str::charcode_at#1",
+      "program": "\n            <: Error:create('ai', {chan: 'kawaii'})\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "error",
+        "name": "ai",
+        "info": {
+          "type": "obj",
+          "value": {
+            "chan": {
+              "type": "str",
+              "value": "kawaii"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "std::str::charcode_at#2",
+      "program": "\n            <: Json:stringify(@(){})\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "\"<function>\""
+      }
+    },
+    {
+      "name": "std::uri::encode_full",
+      "program": "\n            <: [\n                Json:parsable('null')\n                Json:stringify(Json:parse('null'))\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "str",
+            "value": "null"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::uri::encode_component",
+      "program": "\n            <: [\n                Json:parsable('\"hoge\"')\n                Json:stringify(Json:parse('\"hoge\"'))\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "str",
+            "value": "\"hoge\""
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::uri::decode_full",
+      "program": "\n            <: [\n                Json:parsable('[]')\n                Json:stringify(Json:parse('[]'))\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "str",
+            "value": "[]"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::uri::decode_component",
+      "program": "\n            <: [\n                Json:parsable('{}')\n                Json:stringify(Json:parse('{}'))\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "str",
+            "value": "{}"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::error::create",
+      "program": "\n            <: [\n                Json:parsable('')\n                Json:parse('')\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "error",
+            "name": "not_json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::json::stringify_fn",
+      "program": "\n            <: [\n                Json:parsable('hoge')\n                Json:parse('hoge')\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "error",
+            "name": "not_json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::json::parsable#1",
+      "program": "\n            <: [\n                Json:parsable('[')\n                Json:parse('[')\n            ]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "error",
+            "name": "not_json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::json::parsable#2",
+      "program": "\n            let d1 = Date:parse(\"2024-04-12T01:47:46.021+09:00\")\n            let s1 = Date:to_iso_str(d1)\n            let d2 = Date:parse(s1)\n            <: [d1, d2, s1]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "skip_interpreter": true,
+      "skip_vm": true,
+      "extract_error": "no assert_eq"
+    },
+    {
+      "name": "std::json::parsable#3",
+      "program": "\n            let d1 = Date:parse(\"2024-04-12T01:47:46.021+09:00\")\n            let s1 = Date:to_iso_str(d1, 0)\n            let d2 = Date:parse(s1)\n            <: [d1, d2, s1]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1712854066021.0
+          },
+          {
+            "type": "num",
+            "value": 1712854066021.0
+          },
+          {
+            "type": "str",
+            "value": "2024-04-11T16:47:46.021Z"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::json::parsable#4",
+      "program": "\n            let d1 = Date:parse(\"2024-04-12T01:47:46.021+09:00\")\n            let s1 = Date:to_iso_str(d1, 9*60)\n            let d2 = Date:parse(s1)\n            <: [d1, d2, s1]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1712854066021.0
+          },
+          {
+            "type": "num",
+            "value": 1712854066021.0
+          },
+          {
+            "type": "str",
+            "value": "2024-04-12T01:47:46.021+09:00"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::json::unparsable#1",
+      "program": "\n            let d1 = Date:parse(\"2024-04-12T01:47:46.021+09:00\")\n            let s1 = Date:to_iso_str(d1, -5*60-18)\n            let d2 = Date:parse(s1)\n            <: [d1, d2, s1]\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1712854066021.0
+          },
+          {
+            "type": "num",
+            "value": 1712854066021.0
+          },
+          {
+            "type": "str",
+            "value": "2024-04-11T11:29:46.021-05:18"
+          }
+        ]
+      }
+    },
+    {
+      "name": "std::json::unparsable#2",
+      "program": "\n            <: [\n                '01 Jan 1970 00:00:00 GMT'\n                '1970-01-01'\n                '1970-01-01T00:00:00.000Z'\n                '1970-01-01T00:00:00.000+00:00'\n                'hoge'\n            ].map(Date:parse)\n            ",
+      "tags": [
+        "stdlib"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "error",
+            "name": "not_date"
+          }
+        ]
+      }
+    }
+  ]
+}

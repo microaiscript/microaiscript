@@ -1,0 +1,27 @@
+// Arithmetic operations example
+
+<: "Basic arithmetic:"
+<: 5 + 3
+<: 10 - 4
+<: 6 * 7
+<: 15 / 3
+<: 17 % 5
+
+<: ""
+<: "Variables:"
+let x = 10
+let y = 20
+<: x + y
+
+<: ""
+<: "Comparisons:"
+<: 5 < 10
+<: 5 > 10
+<: 5 == 5
+<: 5 != 10
+
+<: ""
+<: "Logical operations:"
+<: true && false
+<: true || false
+<: !false

@@ -1,0 +1,12 @@
+// Closure example - functions capturing variables from outer scope
+@makeAdder(x) {
+  return @(y) { return x + y }
+}
+
+let add5 = makeAdder(5)
+let add10 = makeAdder(10)
+
+<: add5(3)   // Should output: 8
+<: add10(3)  // Should output: 13
+
+

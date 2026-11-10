@@ -1,0 +1,55 @@
+// Cooperative HTTP server: requests are processed when HttpServer:poll runs on the
+// main thread.
+//
+// Async:interval / Async:timeout use background threads only to queue callbacks; those
+// callbacks run on the main interpreter thread when the runtime dispatches them (after
+// Core:sleep returns, between top-level statements — see src/std_async.c). You can use
+// them for timers that update state, but avoid calling HttpServer:poll only from
+// Async: callbacks: poll can block waiting for network I/O, which would stall the main
+// thread during dispatch and can prevent your loop from running. Prefer interleaving
+// HttpServer:poll with your logic in one loop (as below), and use Async for separate
+// timed work that does not block on MHD.
+//
+// Run from repo root: ./bin/aiscript examples/http_server_visit_tracker.ais
+// In another terminal: curl -s http://127.0.0.1:8080/test
+// Watch this terminal for visit lines.
+
+import "modules/http-server/http_server.so"
+
+var visit_count = 0
+var last_path = ""
+var saw_test = false
+
+let h = HttpServer:create({
+  port: 8080,
+  handler: @(req) {
+    last_path = req.path
+    visit_count += 1
+    if req.path == "/test" {
+      saw_test = true
+    }
+    return {
+      status: 200,
+      body: "ok"
+    }
+  }
+})
+
+print("listening on :8080 — poll interleaves HTTP with your code")
+var tick = 0
+loop {
+  HttpServer:poll(h, 100000)
+  tick += 1
+  if saw_test {
+    print(`Someone hit /test (visit #${visit_count}, last path: ${last_path})`)
+    saw_test = false
+  }
+  if tick % 50 == 0 {
+    print(`tick ${tick} (still running; last_path=${last_path})`)
+  }
+  if tick >= 200 {
+    break
+  }
+}
+HttpServer:stop(h)
+print("stopped")

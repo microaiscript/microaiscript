@@ -1,0 +1,20 @@
+// Objects example
+
+let person = {
+    name: "Alice",
+    age: 30,
+    city: "Tokyo"
+}
+
+<: "Person object:"
+<: person
+
+<: ""
+<: "Accessing properties:"
+<: person.name
+<: person.age
+<: person.city
+
+<: ""
+<: "Object type:"
+<: Core:type(person)

@@ -1,0 +1,28 @@
+diff --git a/src/mhd2/events_process.c b/src/mhd2/events_process.c
+index 5dffcf3..1505361 100644
+--- a/src/mhd2/events_process.c
++++ b/src/mhd2/events_process.c
+@@ -2685,6 +2685,23 @@ MHD_daemon_process_reg_events (struct MHD_Daemon *MHD_RESTRICT daemon,
+ }
+ 
+ 
++/**
++ * One iteration of the internal poll/process loop (external periodic / no threads).
++ * Provided for application-driven servers; @a microsec is reserved for future timeout wiring.
++ */
++MHD_EXTERN_ enum MHD_StatusCode
++MHD_daemon_process_blocking (struct MHD_Daemon *daemon,
++                             uint_fast64_t microsec)
++{
++  (void) microsec;
++  if (mhd_DAEMON_STATE_STARTED > daemon->state)
++    return MHD_SC_TOO_EARLY;
++  if (! process_all_events_and_data (daemon))
++    return MHD_SC_INTERNAL_ERROR;
++  return MHD_SC_OK;
++}
++
++
+ #ifdef MHD_SUPPORT_THREADS
+ 
+ /**

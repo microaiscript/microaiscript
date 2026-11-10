@@ -1,0 +1,23 @@
+// Simple loop with break
+var count = 0
+loop {
+  <: count
+  count += 1
+  if count >= 5 {
+    break
+  }
+}
+
+<: "Done with simple loop"
+
+// Loop with continue
+var i = 0
+loop {
+  i += 1
+  if i > 10 { break }
+  if i % 2 == 0 { continue }
+  <: i  // Only prints odd numbers
+}
+
+<: "Done with continue loop"
+

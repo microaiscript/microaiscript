@@ -1,0 +1,30 @@
+# Build output
+bin/
+build/
+*.o
+*.a
+*.so
+*.dll
+*.dylib
+*.map
+*.res
+
+# Compiled AiScript artifacts
+*.aic
+*.aiz
+*-packed
+
+# Tool binaries
+aic-cross/aic-cross
+
+# Upstream reference clones (used only to regenerate/port tests; see docs/testing.md)
+/aiscript/
+/aiscript-rs/
+
+# Fetched third-party source (see modules/http-server/fetch-mhd2.sh)
+modules/http-server/libmicrohttpd2/
+
+# Editor / tooling
+.vscode/
+.cursorignore
+__pycache__/

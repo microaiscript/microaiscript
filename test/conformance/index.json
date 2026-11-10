@@ -1,0 +1,1021 @@
+{
+  "module": "index",
+  "cases": [
+    {
+      "name": "index::hello_world",
+      "program": "<: \"Hello, world!\"",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "Hello, world!"
+      }
+    },
+    {
+      "name": "index::expression_containing_collon_is_not_object",
+      "program": "\n        <: eval {\n            Core:eq(\"ai\", \"ai\")\n        }\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "index::inc",
+      "program": "\n        var a = 0\n        a += 1\n        a += 2\n        a += 3\n        <: a\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 6.0
+      }
+    },
+    {
+      "name": "index::dec",
+      "program": "\n        var a = 0\n        a -= 1\n        a -= 2\n        a -= 3\n        <: a\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": -6.0
+      }
+    },
+    {
+      "name": "index::reference_is_not_chained",
+      "program": "\n        var f = @() { \"a\" }\n        var g = f\n        f = @() { \"b\" }\n\n        <: g()\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a"
+      }
+    },
+    {
+      "name": "index::empty_function",
+      "program": "\n        @hoge() { }\n        <: hoge()\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "index::empty_lambda",
+      "program": "\n        let hoge = @() { }\n        <: hoge()\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "index::lambda_that_returns_an_object",
+      "program": "\n        let hoge = @() {{}}\n        <: hoge()\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {}
+      }
+    },
+    {
+      "name": "index::closure",
+      "program": "\n        @store(v) {\n            let state = v\n            @() {\n                state\n            }\n        }\n        let s = store(\"ai\")\n        <: s()\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "index::closure_counter",
+      "program": "\n        @create_counter() {\n            var count = 0\n            {\n                get_count: @() { count },\n                count: @() { count = (count + 1) },\n            }\n        }\n\n        let counter = create_counter()\n        let get_count = counter.get_count\n        let count = counter.count\n\n        count()\n        count()\n        count()\n\n        <: get_count()\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      },
+      "skip_vm": true,
+      "skip_interpreter": true
+    },
+    {
+      "name": "index::recursion",
+      "program": "\n        @fact(n) {\n            if (n == 0) { 1 } else { (fact((n - 1)) * n) }\n        }\n\n        <: fact(5)\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 120.0
+      }
+    },
+    {
+      "name": "index::object::property_access",
+      "program": "\n            let obj = {\n                a: {\n                    b: {\n                        c: 42,\n                    },\n                },\n            }\n\n            <: obj.a.b.c\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::object::property_access_fn_call",
+      "program": "\n            @f() { 42 }\n\n            let obj = {\n                a: {\n                    b: {\n                        c: f,\n                    },\n                },\n            }\n\n            <: obj.a.b.c()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::object::property_assign",
+      "program": "\n            let obj = {\n                a: 1\n                b: {\n                    c: 2\n                    d: {\n                        e: 3\n                    }\n                }\n            }\n\n            obj.a = 24\n            obj.b.d.e = 42\n\n            <: obj\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 24.0
+          },
+          "b": {
+            "type": "obj",
+            "value": {
+              "c": {
+                "type": "num",
+                "value": 2.0
+              },
+              "d": {
+                "type": "obj",
+                "value": {
+                  "e": {
+                    "type": "num",
+                    "value": 42.0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "index::object::string_key",
+      "program": "\n            let obj = {\n                \"\u85cd\": 42,\n            }\n\n            <: obj.\"\u85cd\"\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::object::string_key_including_colon_and_period",
+      "program": "\n            let obj = {\n                \":.:\": 42,\n            }\n\n            <: obj.\":.:\"\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::array::array_item_access",
+      "program": "\n            let arr = [\"ai\", \"chan\", \"kawaii\"]\n\n            <: arr[1]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "chan"
+      }
+    },
+    {
+      "name": "index::array::array_item_assign",
+      "program": "\n            let arr = [\"ai\", \"chan\", \"kawaii\"]\n\n            arr[1] = \"taso\"\n\n            <: arr\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai"
+          },
+          {
+            "type": "str",
+            "value": "taso"
+          },
+          {
+            "type": "str",
+            "value": "kawaii"
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::array::assign_array_item_to_out_of_range#1",
+      "program": "\n            let arr = [1, 2, 3]\n\n            arr[3] = 4\n\n            <: null\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::array::assign_array_item_to_out_of_range#2",
+      "program": "\n            let arr = [1, 2, 3]\n\n            arr[9] = 10\n\n            <: null\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::array::index_out_of_range_error",
+      "program": "\n            <: [42][1]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::array::index_out_of_range_on_assignment",
+      "program": "\n            var a = []\n            a[2] = 'hoge'\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::array::non_integer_indexed_assignment",
+      "program": "\n            var a = []\n            a[6.21] = 'hoge'\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::chain::chain_access_prop_index_call",
+      "program": "\n            let obj = {\n                a: {\n                    b: [@(name) { name }, @(str) { \"chan\" }, @() { \"kawaii\" }],\n                },\n            }\n\n            <: obj.a.b[0](\"ai\")\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "index::chain::chained_assign_left_side_prop_index",
+      "program": "\n            let obj = {\n                a: {\n                    b: [\"ai\", \"chan\", \"kawaii\"],\n                },\n            }\n\n            obj.a.b[1] = \"taso\"\n\n            <: obj\n            ",
+      "tags": [
+        "core"
+      ],
+      "extract_error": "expected ) after obj pair",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "index::chain::chained_assign_right_side_prop_index_call",
+      "program": "\n            let obj = {\n                a: {\n                    b: [\"ai\", \"chan\", \"kawaii\"],\n                },\n            }\n\n            var x = null\n            x = obj.a.b[1]\n\n            <: x\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "chan"
+      }
+    },
+    {
+      "name": "index::chain::chained_inc_dec_left_side_index_prop",
+      "program": "\n            let arr = [\n                {\n                    a: 1,\n                    b: 2,\n                }\n            ]\n\n            arr[0].a += 1\n            arr[0].b -= 1\n\n            <: arr\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "obj",
+            "value": {
+              "a": {
+                "type": "num",
+                "value": 2.0
+              },
+              "b": {
+                "type": "num",
+                "value": 1.0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::chain::chained_inc_dec_left_side_prop_index",
+      "program": "\n            let obj = {\n                a: {\n                    b: [1, 2, 3],\n                },\n            }\n\n            obj.a.b[1] += 1\n            obj.a.b[2] -= 1\n\n            <: obj\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "obj",
+            "value": {
+              "b": {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 1.0
+                  },
+                  {
+                    "type": "num",
+                    "value": 3.0
+                  },
+                  {
+                    "type": "num",
+                    "value": 2.0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "index::chain::prop_in_def",
+      "program": "\n            let x = @() {\n                let obj = {\n                    a: 1\n                }\n                obj.a\n            }\n\n            <: x()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "index::chain::prop_in_return",
+      "program": "\n            let x = @() {\n                let obj = {\n                    a: 1\n                }\n                return obj.a\n                2\n            }\n\n            <: x()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "index::chain::prop_in_each",
+      "program": "\n            let msgs = []\n            let x = { a: [\"ai\", \"chan\", \"kawaii\"] }\n            each let item, x.a {\n                let y = { a: item }\n                msgs.push([y.a, \"!\"].join())\n            }\n            <: msgs\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "ai!"
+          },
+          {
+            "type": "str",
+            "value": "chan!"
+          },
+          {
+            "type": "str",
+            "value": "kawaii!"
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::chain::prop_in_for",
+      "program": "\n            let x = { times: 10, count: 0 }\n            for (let i, x.times) {\n                x.count = (x.count + i)\n            }\n            <: x.count\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 45.0
+      }
+    },
+    {
+      "name": "index::chain::object_with_index",
+      "program": "\n            let ai = {a: {}}['a']\n            ai['chan'] = 'kawaii'\n            <: ai[{a: 'chan'}['a']]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "index::does_not_throw_error_when_divided_by_zero",
+      "program": "\n        <: (0 / 0)\n        ",
+      "tags": [
+        "core"
+      ],
+      "skip_interpreter": true,
+      "skip_vm": true,
+      "extract_error": "no assert_eq"
+    },
+    {
+      "name": "index::function_call::without_args",
+      "program": "\n            @f() {\n                42\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::function_call::with_args",
+      "program": "\n            @f(x) {\n                x\n            }\n            <: f(42)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::function_call::with_args_separated_by_comma",
+      "program": "\n            @f(x, y) {\n                (x + y)\n            }\n            <: f(1, 1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "index::function_call::optional_args",
+      "program": "\n            @f(x, y?, z?) {\n                [x, y, z]\n            }\n            <: f(true)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::function_call::args_with_default_value",
+      "program": "\n            @f(x, y=1, z=2) {\n                [x, y, z]\n            }\n            <: f(5, 3)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 5.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::function_call::missing_arg",
+      "program": "\n            @func(a){}\n            func()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::function_call::std_throw_aiscript_error_when_required_arg_missing",
+      "program": "\n            <: Core:eq(1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::return_::early_return",
+      "program": "\n            @f() {\n                if true {\n                    return \"ai\"\n                }\n\n                \"pope\"\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "index::return_::early_return_nested",
+      "program": "\n            @f() {\n                if true {\n                    if true {\n                        return \"ai\"\n                    }\n                }\n\n                \"pope\"\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "index::return_::early_return_nested_2",
+      "program": "\n            @f() {\n                if true {\n                    return \"ai\"\n                }\n\n                \"pope\"\n            }\n\n            @g() {\n                if (f() == \"ai\") {\n                    return \"kawaii\"\n                }\n\n                \"pope\"\n            }\n\n            <: g()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "kawaii"
+      }
+    },
+    {
+      "name": "index::return_::early_return_without_block",
+      "program": "\n            @f() {\n                if true return \"ai\"\n\n                \"pope\"\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai"
+      }
+    },
+    {
+      "name": "index::return_::return_inside_for",
+      "program": "\n            @f() {\n                var count = 0\n                for (let i, 100) {\n                    count += 1\n                    if (i == 42) {\n                        return count\n                    }\n                }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 43.0
+      }
+    },
+    {
+      "name": "index::return_::return_inside_for_2",
+      "program": "\n            @f() {\n                for (let i, 10) {\n                    return 1\n                }\n                2\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "index::return_::return_inside_loop",
+      "program": "\n            @f() {\n                var count = 0\n                loop {\n                    count += 1\n                    if (count == 42) {\n                        return count\n                    }\n                }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 42.0
+      }
+    },
+    {
+      "name": "index::return_::return_inside_loop_2",
+      "program": "\n            @f() {\n                loop {\n                    return 1\n                }\n                2\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "index::return_::return_inside_each",
+      "program": "\n            @f() {\n                var count = 0\n                each (let item, [\"ai\", \"chan\", \"kawaii\"]) {\n                    count += 1\n                    if (item == \"chan\") {\n                        return count\n                    }\n                }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 2.0
+      }
+    },
+    {
+      "name": "index::return_::return_inside_each_2",
+      "program": "\n            @f() {\n                each (let item, [\"ai\", \"chan\", \"kawaii\"]) {\n                    return 1\n                }\n                2\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "index::type_declaration::def",
+      "program": "\n            let abc: num = 1\n            var xyz: str = \"abc\"\n            <: [abc, xyz]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::type_declaration::fn_def",
+      "program": "\n            @f(x: arr<num>, y: str, z: @(num) => bool): arr<num> {\n                x.push(0)\n                y = \"abc\"\n                var r: bool = z(x[0])\n                x.push(if r 5 else 10)\n                x\n            }\n\n            <: f([1, 2, 3], \"a\", @(n) { n == 1 })\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 5.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::type_declaration::def_null",
+      "program": "\n            let a: null = null\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "index::type_declaration::fn_def_null",
+      "program": "\n            @f(): null {}\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "index::unicode::len",
+      "program": "\n            <: \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".len\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "index::unicode::pick",
+      "program": "\n            <: \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".pick(1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "\ud83c\udf46"
+      }
+    },
+    {
+      "name": "index::unicode::slice",
+      "program": "\n            <: \"Emojis \ud83d\udc4d\ud83c\udffd are \ud83c\udf46 poison. \ud83c\udf2es are bad.\".slice(7, 14)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "\ud83d\udc4d\ud83c\udffd are \ud83c\udf46"
+      }
+    },
+    {
+      "name": "index::unicode::split",
+      "program": "\n            <: \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".split()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "\ud83d\udc4d\ud83c\udffd"
+          },
+          {
+            "type": "str",
+            "value": "\ud83c\udf46"
+          },
+          {
+            "type": "str",
+            "value": "\ud83c\udf2e"
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::unicode::charcode_at",
+      "program": "\n            <: [\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(0),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(1),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(2),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(3),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(4),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(5),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(6),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".charcode_at(7),\n            ]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 55357.0
+          },
+          {
+            "type": "num",
+            "value": 56397.0
+          },
+          {
+            "type": "num",
+            "value": 55356.0
+          },
+          {
+            "type": "num",
+            "value": 57341.0
+          },
+          {
+            "type": "num",
+            "value": 55356.0
+          },
+          {
+            "type": "num",
+            "value": 57158.0
+          },
+          {
+            "type": "num",
+            "value": 55356.0
+          },
+          {
+            "type": "num",
+            "value": 57134.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::unicode::codepoint_at",
+      "program": "\n            <: [\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(0),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(1),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(2),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(3),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(4),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(5),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(6),\n                \"\ud83d\udc4d\ud83c\udffd\ud83c\udf46\ud83c\udf2e\".codepoint_at(7),\n            ]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 128077.0
+          },
+          {
+            "type": "num",
+            "value": 56397.0
+          },
+          {
+            "type": "num",
+            "value": 127997.0
+          },
+          {
+            "type": "num",
+            "value": 57341.0
+          },
+          {
+            "type": "num",
+            "value": 127814.0
+          },
+          {
+            "type": "num",
+            "value": 57158.0
+          },
+          {
+            "type": "num",
+            "value": 127790.0
+          },
+          {
+            "type": "num",
+            "value": 57134.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_var#1",
+      "program": "\n            <: constructor\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_var#2",
+      "program": "\n            <: prototype\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_var#3",
+      "program": "\n            <: __proto__\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_object#1",
+      "program": "\n            let obj = {}\n\n            <: obj.prototype\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_object#2",
+      "program": "\n            let obj = {}\n\n            <: obj.__proto__\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_primitive_prop#1",
+      "program": "\n            <: \"\".constructor\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_primitive_prop#2",
+      "program": "\n            <: \"\".prototype\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::security::cannot_access_js_native_property_via_primitive_prop#3",
+      "program": "\n            <: \"\".__proto__\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "index::extra::fizz_buzz",
+      "program": "\n            let res = []\n            for (let i = 1, 15) {\n                let msg =\n                    if (i % 15 == 0) \"FizzBuzz\"\n                    elif (i % 3 == 0) \"Fizz\"\n                    elif (i % 5 == 0) \"Buzz\"\n                    else i\n                res.push(msg)\n            }\n            <: res\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "str",
+            "value": "Fizz"
+          },
+          {
+            "type": "num",
+            "value": 4.0
+          },
+          {
+            "type": "str",
+            "value": "Buzz"
+          },
+          {
+            "type": "str",
+            "value": "Fizz"
+          },
+          {
+            "type": "num",
+            "value": 7.0
+          },
+          {
+            "type": "num",
+            "value": 8.0
+          },
+          {
+            "type": "str",
+            "value": "Fizz"
+          },
+          {
+            "type": "str",
+            "value": "Buzz"
+          },
+          {
+            "type": "num",
+            "value": 11.0
+          },
+          {
+            "type": "str",
+            "value": "Fizz"
+          },
+          {
+            "type": "num",
+            "value": 13.0
+          },
+          {
+            "type": "num",
+            "value": 14.0
+          },
+          {
+            "type": "str",
+            "value": "FizzBuzz"
+          }
+        ]
+      }
+    },
+    {
+      "name": "index::extra::ski",
+      "program": "\n            let s = @(x) { @(y) { @(z) {\n                //let f = x(z) f(@(a){ let g = y(z) g(a) })\n                let f = x(z)\n                f(y(z))\n            }}}\n            let k = @(x){ @(y) { x } }\n            let i = @(x){ x }\n\n            // combine\n            @c(l) {\n                // extract\n                @x(v) {\n                    if (Core:type(v) == \"arr\") { c(v) } else { v }\n                }\n\n                // rec\n                @r(f, n) {\n                    if (n < l.len) {\n                        r(f(x(l[n])), (n + 1))\n                    } else { f }\n                }\n\n                r(x(l[0]), 1)\n            }\n\n            let sksik = [s, [k, [s, i]], k]\n            c([sksik, \"foo\", print])\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "foo"
+      }
+    }
+  ]
+}

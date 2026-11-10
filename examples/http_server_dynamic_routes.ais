@@ -1,0 +1,87 @@
+// Dynamic routes: branch on req.path and use globals so pages change as state changes.
+// Use one template per HTML chunk — joining with + still runs both sides through
+// display stringification (extra quotes). Same for str + str.
+// In templates, `{` starts an interpolation — literal CSS braces must be written as `\{`.
+// Interpolation only supports simple expressions (not `Ns:fn()`); assign to a var first.
+//
+// Open http://127.0.0.1:8777/ in a browser. Run: ./bin/aiscript examples/http_server_dynamic_routes.ais
+
+import "modules/http-server/http_server.so"
+
+var total_requests = 0
+var mood = "calm"
+var flip_count = 0
+
+@html(inner) {
+  `<!DOCTYPE html><html><head><meta charset="utf-8"><title>dynamic</title><style>body\{font-family:sans-serif;max-width:36em;margin:2em auto}a\{margin-right:1em\}</style></head><body>{inner}</body></html>`
+}
+
+@respond_html(body_str) {
+  return {
+    status: 200,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    body: body_str
+  }
+}
+
+let h = HttpServer:create({
+  port: 8777,
+  handler: @(req) {
+    total_requests += 1
+    let req_path = req.path
+
+    if req_path == "/" {
+      let ts = Date:now()
+      return respond_html(html(
+        `<h1>Home</h1><p>Total requests (any path): {total_requests}</p><p>Server time (ms): {ts}</p><p>Mood: <strong>{mood}</strong> — <a href="/flip">flip mood</a></p><p><a href="/stats">/stats</a> · <a href="/raw">/raw</a> (plain text)</p>`
+      ))
+    }
+
+    if req_path == "/flip" {
+      flip_count += 1
+      if mood == "calm" {
+        mood = "hyper"
+      } else {
+        if mood == "hyper" {
+          mood = "sleepy"
+        } else {
+          mood = "calm"
+        }
+      }
+      return respond_html(html(
+        `<h1>Mood updated</h1><p>Now: <strong>{mood}</strong> (flip #{flip_count})</p><p><a href="/">back home</a></p>`
+      ))
+    }
+
+    if req_path == "/stats" {
+      return respond_html(html(
+        `<h1>Stats</h1><ul><li>total_requests: {total_requests}</li><li>flip_count: {flip_count}</li><li>mood: {mood}</li></ul><p><a href="/">home</a></p>`
+      ))
+    }
+
+    if req_path == "/raw" {
+      return {
+        status: 200,
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8"
+        },
+        body: `mood={mood} total={total_requests} flips={flip_count}`
+      }
+    }
+
+    return {
+      status: 404,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8"
+      },
+      body: `not found: {req_path}`
+    }
+  }
+})
+
+print("dynamic routes on http://127.0.0.1:8777/  (Ctrl+C to stop)")
+loop {
+  HttpServer:poll(h, 200000)
+}

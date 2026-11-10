@@ -1,0 +1,334 @@
+{
+  "module": "newline",
+  "cases": [
+    {
+      "name": "newline::empty_lines::match_::empty_line",
+      "program": "\n                <: match 1 {\n                    // comment\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "newline::empty_lines::match_::empty_line_before_case",
+      "program": "\n                <: match 1 {\n                    // comment\n                    case 1 => 1\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::match_::empty_line_after_case",
+      "program": "\n                <: match 1 {\n                    case 1 => 1\n                    // comment\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::match_::empty_line_before_default",
+      "program": "\n                <: match 1 {\n                    // comment\n                    default => 1\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::match_::empty_line_after_default",
+      "program": "\n                <: match 1 {\n                    default => 1\n                    // comment\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::call::empty_line",
+      "program": "\n                @f() {\n                    1\n                }\n                <:f(\n                    // comment\n                )\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::call::empty_line_before",
+      "program": "\n                @f(a) {\n                    a\n                }\n                <:f(\n                    // comment\n                    1\n                )\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::call::empty_line_after",
+      "program": "\n                @f(a) {\n                    a\n                }\n                <:f(\n                    1\n                    // comment\n                )\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::type_params::function::empty_line_before",
+      "program": "\n                    @f<\n                        // comment\n                        T\n                    >(v: T): T {\n                        v\n                    }\n                    <: f(1)\n                    ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::type_params::function::empty_line_after",
+      "program": "\n                    @f<\n                        T\n                        // comment\n                    >(v: T): T {\n                        v\n                    }\n                    <: f(1)\n                    ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::type_params::function_type::empty_line_before",
+      "program": "\n                    let f: @<\n                        // comment\n                        T\n                    >(T) => T = @(v) {\n                        v\n                    }\n                    <: f(1)\n                    ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::type_params::function_type::empty_line_after",
+      "program": "\n                    let f: @<\n                        T\n                        // comment\n                    >(T) => T = @(v) {\n                        v\n                    }\n                    <: f(1)\n                    ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::function_params::empty_line",
+      "program": "\n                @f(\n                    // comment\n                ) {\n                    1\n                }\n                <: f()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::function_params::empty_line_before",
+      "program": "\n                @f(\n                    // comment\n                    a\n                ) {\n                    a\n                }\n                <: f(1)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::function_params::empty_line_after",
+      "program": "\n                @f(\n                    a\n                    // comment\n                ) {\n                    a\n                }\n                <: f(1)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::if_::empty_line_between_if_elif",
+      "program": "\n                <: if true {\n                    1\n                }\n                // comment\n                elif true {\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::if_::empty_line_between_if_elif_elif",
+      "program": "\n                <: if true {\n                    1\n                }\n                // comment\n                elif true {\n                    2\n                }\n                // comment\n                elif true {\n                    3\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::if_::empty_line_between_if_else",
+      "program": "\n                <: if true {\n                    1\n                }\n                // comment\n                else {\n                    2\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::if_::empty_line_between_if_elif_else",
+      "program": "\n                <: if true {\n                    1\n                }\n                // comment\n                elif true {\n                    2\n                }\n                // comment\n                else {\n                    3\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::unary_operation::empty_line_after",
+      "program": "\n                <: ! \\\n                // comment\n                true\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "newline::empty_lines::binary_operation::empty_line_before",
+      "program": "\n                <: 2 \\\n                // comment\n                * 3\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 6.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::binary_operation::empty_line_after",
+      "program": "\n                <: 2 * \\\n                // comment\n                3\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 6.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::variable_definition::empty_line_after_equal",
+      "program": "\n                let a =\n                // comment\n                1\n                <: a\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::attribute::empty_line_after",
+      "program": "\n                #[abc]\n                // comment\n                let a = 1\n                <: a\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::obj_literal::empty_line",
+      "program": "\n                <: {\n                    // comment\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {}
+      }
+    },
+    {
+      "name": "newline::empty_lines::obj_literal::empty_line_before",
+      "program": "\n                let x = {\n                    // comment\n                    a: 1\n                }\n                <: x.a\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::obj_literal::empty_line_after",
+      "program": "\n                let x = {\n                    a: 1\n                    // comment\n                }\n                <: x.a\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::arr_literal::empty_line",
+      "program": "\n                <: [\n                    // comment\n                ]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "newline::empty_lines::arr_literal::empty_line_before",
+      "program": "\n                let x = [\n                    // comment\n                    1\n                ]\n                <: x[0]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "newline::empty_lines::arr_literal::empty_line_after",
+      "program": "\n                let x = [\n                    1\n                    // comment\n                ]\n                <: x[0]\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    }
+  ]
+}

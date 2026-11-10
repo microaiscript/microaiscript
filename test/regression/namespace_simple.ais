@@ -1,0 +1,6 @@
+:: Math {
+    let PI = 3.14
+}
+
+<: Math:PI
+<: "Done"

@@ -1,0 +1,5 @@
+// ais-pack demo: native + AiScript bundle
+import "lib/demo_native.so"
+
+print("main.ais running")
+demo_native:say_hi()

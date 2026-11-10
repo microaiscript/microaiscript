@@ -1,0 +1,24 @@
+// Variables example
+
+<: "Immutable variable (let):"
+let x = 42
+<: x
+
+<: ""
+<: "Mutable variable (var):"
+var y = 10
+<: y
+y = 20
+<: y
+
+<: ""
+<: "Different types:"
+let str = "Hello"
+let num = 123
+let bool = true
+let nothing = null
+
+<: Core:type(str)
+<: Core:type(num)
+<: Core:type(bool)
+<: Core:type(nothing)

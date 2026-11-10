@@ -1,0 +1,2816 @@
+{
+  "module": "primitive_props",
+  "cases": [
+    {
+      "name": "primitive_props::num::to_str",
+      "program": "\n            let num = 123\n            <: num.to_str()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "123"
+      }
+    },
+    {
+      "name": "primitive_props::num::to_hex#1",
+      "program": "\n            <: [\n                0, 10, 16,\n                -10, -16,\n                0.5,\n            ].map(@(v){v.to_hex()})\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "0"
+          },
+          {
+            "type": "str",
+            "value": "a"
+          },
+          {
+            "type": "str",
+            "value": "10"
+          },
+          {
+            "type": "str",
+            "value": "-a"
+          },
+          {
+            "type": "str",
+            "value": "-10"
+          },
+          {
+            "type": "str",
+            "value": "0.8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::num::to_hex#2",
+      "program": "\n            <: [\n                0.1,\n                -0.1,\n                1000000.1,\n                -1000000.1,\n                0.00000000001,\n                -0.00000000001,\n                1000000.00000000001\n                -1000000.00000000001\n                0.0000152587890625,\n                -0.0000152587890625,\n                200.0000152587890625,\n                -200.0000152587890625,\n            ].map(@(v){v.to_hex()})\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "0.1999999999999a"
+          },
+          {
+            "type": "str",
+            "value": "-0.1999999999999a"
+          },
+          {
+            "type": "str",
+            "value": "f4240.199999998"
+          },
+          {
+            "type": "str",
+            "value": "-f4240.199999998"
+          },
+          {
+            "type": "str",
+            "value": "0.000000000afebff0bcb24a8"
+          },
+          {
+            "type": "str",
+            "value": "-0.000000000afebff0bcb24a8"
+          },
+          {
+            "type": "str",
+            "value": "f4240"
+          },
+          {
+            "type": "str",
+            "value": "-f4240"
+          },
+          {
+            "type": "str",
+            "value": "0.0001"
+          },
+          {
+            "type": "str",
+            "value": "-0.0001"
+          },
+          {
+            "type": "str",
+            "value": "c8.0001"
+          },
+          {
+            "type": "str",
+            "value": "-c8.0001"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::len",
+      "program": "\n            let str = \"hello\"\n            <: str.len\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 5.0
+      }
+    },
+    {
+      "name": "primitive_props::str::to_num",
+      "program": "\n            let str = \"123\"\n            <: str.to_num()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 123.0
+      }
+    },
+    {
+      "name": "primitive_props::str::upper",
+      "program": "\n            let str = \"hello\"\n            <: str.upper()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "HELLO"
+      }
+    },
+    {
+      "name": "primitive_props::str::lower",
+      "program": "\n            let str = \"HELLO\"\n            <: str.lower()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "hello"
+      }
+    },
+    {
+      "name": "primitive_props::str::trim",
+      "program": "\n            let str = \" hello  \"\n            <: str.trim()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "hello"
+      }
+    },
+    {
+      "name": "primitive_props::str::replace",
+      "program": "\n            let str = \"hello\"\n            <: str.replace(\"l\", \"x\")\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "hexxo"
+      }
+    },
+    {
+      "name": "primitive_props::str::index_of",
+      "program": "\n            let str = '0123401234'\n            <: [\n                str.index_of('3') == 3,\n                str.index_of('5') == -1,\n                str.index_of('3', 3) == 3,\n                str.index_of('3', 4) == 8,\n                str.index_of('3', -1) == -1,\n                str.index_of('3', -2) == 8,\n                str.index_of('3', -7) == 3,\n                str.index_of('3', 10) == -1,\n            ].map(@(v){if (v) '1' else '0'}).join()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "11111111"
+      }
+    },
+    {
+      "name": "primitive_props::str::incl",
+      "program": "\n            let str = \"hello\"\n            <: [str.incl(\"ll\"), str.incl(\"x\")]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::split",
+      "program": "\n            let str = \"a,b,c\"\n            <: str.split(\",\")\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "a"
+          },
+          {
+            "type": "str",
+            "value": "b"
+          },
+          {
+            "type": "str",
+            "value": "c"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::pick",
+      "program": "\n            let str = \"hello\"\n            <: str.pick(1)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "e"
+      }
+    },
+    {
+      "name": "primitive_props::str::slice",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(1, 3)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "el"
+      }
+    },
+    {
+      "name": "primitive_props::str::slice_out_of_range#1",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(3, 1)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": ""
+      }
+    },
+    {
+      "name": "primitive_props::str::slice_out_of_range#2",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(-1, 3)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "hel"
+      }
+    },
+    {
+      "name": "primitive_props::str::slice_out_of_range#3",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(3, -1)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": ""
+      }
+    },
+    {
+      "name": "primitive_props::str::slice_out_of_range#4",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(-1, -3)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": ""
+      }
+    },
+    {
+      "name": "primitive_props::str::slice_out_of_range#5",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(-3, -1)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": ""
+      }
+    },
+    {
+      "name": "primitive_props::str::slice_out_of_range#6",
+      "program": "\n            let str = \"hello\"\n            <: str.slice(11, 13)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": ""
+      }
+    },
+    {
+      "name": "primitive_props::str::codepoint_at",
+      "program": "\n            let str = \"\ud867\ude3d\"\n            <: str.codepoint_at(0)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 171581.0
+      }
+    },
+    {
+      "name": "primitive_props::str::to_arr",
+      "program": "\n            let str = \"\ud867\ude3d\ud83d\udc49\ud83c\udfff\ud83d\udc68\u200d\ud83d\udc66\"\n            <: str.to_arr()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "\ud867\ude3d"
+          },
+          {
+            "type": "str",
+            "value": "\ud83d\udc49\ud83c\udfff"
+          },
+          {
+            "type": "str",
+            "value": "\ud83d\udc68\u200d\ud83d\udc66"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::to_unicode_arr",
+      "program": "\n            let str = \"\ud867\ude3d\ud83d\udc49\ud83c\udfff\ud83d\udc68\u200d\ud83d\udc66\"\n            <: str.to_unicode_arr()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "\ud867\ude3d"
+          },
+          {
+            "type": "str",
+            "value": "\ud83d\udc49"
+          },
+          {
+            "type": "str",
+            "value": "\ud83c\udfff"
+          },
+          {
+            "type": "str",
+            "value": "\ud83d\udc68"
+          },
+          {
+            "type": "str",
+            "value": "\u200d"
+          },
+          {
+            "type": "str",
+            "value": "\ud83d\udc66"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::to_unicode_codepoint_arr",
+      "program": "\n            let str = \"\ud867\ude3d\ud83d\udc49\ud83c\udfff\ud83d\udc68\u200d\ud83d\udc66\"\n            <: str.to_unicode_codepoint_arr()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 171581.0
+          },
+          {
+            "type": "num",
+            "value": 128073.0
+          },
+          {
+            "type": "num",
+            "value": 127999.0
+          },
+          {
+            "type": "num",
+            "value": 128104.0
+          },
+          {
+            "type": "num",
+            "value": 8205.0
+          },
+          {
+            "type": "num",
+            "value": 128102.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::to_char_arr",
+      "program": "\n            let str = \"abc\ud867\ude3d\ud83d\udc49\ud83c\udfff\ud83d\udc68\u200d\ud83d\udc66def\"\n            <: str.to_char_arr()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "extract_error": "expected ) after arr(",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "primitive_props::str::to_charcode_arr",
+      "program": "\n            let str = \"abc\ud867\ude3d\ud83d\udc49\ud83c\udfff\ud83d\udc68\u200d\ud83d\udc66def\"\n            <: str.to_charcode_arr()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 97.0
+          },
+          {
+            "type": "num",
+            "value": 98.0
+          },
+          {
+            "type": "num",
+            "value": 99.0
+          },
+          {
+            "type": "num",
+            "value": 55399.0
+          },
+          {
+            "type": "num",
+            "value": 56893.0
+          },
+          {
+            "type": "num",
+            "value": 55357.0
+          },
+          {
+            "type": "num",
+            "value": 56393.0
+          },
+          {
+            "type": "num",
+            "value": 55356.0
+          },
+          {
+            "type": "num",
+            "value": 57343.0
+          },
+          {
+            "type": "num",
+            "value": 55357.0
+          },
+          {
+            "type": "num",
+            "value": 56424.0
+          },
+          {
+            "type": "num",
+            "value": 8205.0
+          },
+          {
+            "type": "num",
+            "value": 55357.0
+          },
+          {
+            "type": "num",
+            "value": 56422.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 101.0
+          },
+          {
+            "type": "num",
+            "value": 102.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::to_utf8_byte_arr",
+      "program": "\n            let str = \"abc\ud867\ude3d\ud83d\udc49\ud83c\udfff\ud83d\udc68\u200d\ud83d\udc66def\"\n            <: str.to_utf8_byte_arr()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 97.0
+          },
+          {
+            "type": "num",
+            "value": 98.0
+          },
+          {
+            "type": "num",
+            "value": 99.0
+          },
+          {
+            "type": "num",
+            "value": 240.0
+          },
+          {
+            "type": "num",
+            "value": 169.0
+          },
+          {
+            "type": "num",
+            "value": 184.0
+          },
+          {
+            "type": "num",
+            "value": 189.0
+          },
+          {
+            "type": "num",
+            "value": 240.0
+          },
+          {
+            "type": "num",
+            "value": 159.0
+          },
+          {
+            "type": "num",
+            "value": 145.0
+          },
+          {
+            "type": "num",
+            "value": 137.0
+          },
+          {
+            "type": "num",
+            "value": 240.0
+          },
+          {
+            "type": "num",
+            "value": 159.0
+          },
+          {
+            "type": "num",
+            "value": 143.0
+          },
+          {
+            "type": "num",
+            "value": 191.0
+          },
+          {
+            "type": "num",
+            "value": 240.0
+          },
+          {
+            "type": "num",
+            "value": 159.0
+          },
+          {
+            "type": "num",
+            "value": 145.0
+          },
+          {
+            "type": "num",
+            "value": 168.0
+          },
+          {
+            "type": "num",
+            "value": 226.0
+          },
+          {
+            "type": "num",
+            "value": 128.0
+          },
+          {
+            "type": "num",
+            "value": 141.0
+          },
+          {
+            "type": "num",
+            "value": 240.0
+          },
+          {
+            "type": "num",
+            "value": 159.0
+          },
+          {
+            "type": "num",
+            "value": 145.0
+          },
+          {
+            "type": "num",
+            "value": 166.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 101.0
+          },
+          {
+            "type": "num",
+            "value": 102.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::starts_with_no_index",
+      "program": "\n            let str = \"hello\"\n            let empty = \"\"\n            <: [\n                str.starts_with(\"\"), str.starts_with(\"hello\"),\n                str.starts_with(\"he\"), str.starts_with(\"ell\"),\n                empty.starts_with(\"\"), empty.starts_with(\"he\"),\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::starts_with_with_index",
+      "program": "\n            let str = \"hello\"\n            let empty = \"\"\n            <: [\n                str.starts_with(\"\", 4), str.starts_with(\"he\", 0),\n                str.starts_with(\"ll\", 2), str.starts_with(\"lo\", 3),\n                str.starts_with(\"lo\", -2), str.starts_with(\"hel\", -5),\n                str.starts_with(\"he\", 2), str.starts_with(\"loa\", 3),\n                str.starts_with(\"lo\", -6), str.starts_with(\"\", -7),\n                str.starts_with(\"lo\", 6), str.starts_with(\"\", 7),\n                empty.starts_with(\"\", 2), empty.starts_with(\"ll\", 2),\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::ends_with_no_index",
+      "program": "\n            let str = \"hello\"\n            let empty = \"\"\n            <: [\n                str.ends_with(\"\"), str.ends_with(\"hello\"),\n                str.ends_with(\"lo\"), str.ends_with(\"ell\"),\n                empty.ends_with(\"\"), empty.ends_with(\"he\"),\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::ends_with_with_index",
+      "program": "\n            let str = \"hello\"\n            let empty = \"\"\n            <: [\n                str.ends_with(\"\", 3), str.ends_with(\"lo\", 5),\n                str.ends_with(\"ll\", 4), str.ends_with(\"he\", 2),\n                str.ends_with(\"ll\", -1), str.ends_with(\"he\", -3),\n                str.ends_with(\"he\", 5), str.ends_with(\"lo\", 3),\n                str.ends_with(\"lo\", -6), str.ends_with(\"\", -7),\n                str.ends_with(\"lo\", 6), str.ends_with(\"\", 7),\n                empty.ends_with(\"\", 2), empty.ends_with(\"ll\", 2),\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::pad_start",
+      "program": "\n            let str = \"abc\"\n            <: [\n                str.pad_start(0), str.pad_start(1), str.pad_start(2),\n                str.pad_start(3), str.pad_start(4), str.pad_start(5),\n                str.pad_start(0, \"0\"), str.pad_start(1, \"0\"), str.pad_start(2, \"0\"),\n                str.pad_start(3, \"0\"), str.pad_start(4, \"0\"), str.pad_start(5, \"0\"),\n                str.pad_start(0, \"01\"), str.pad_start(1, \"01\"), str.pad_start(2, \"01\"),\n                str.pad_start(3, \"01\"), str.pad_start(4, \"01\"), str.pad_start(5, \"01\"),\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": " abc"
+          },
+          {
+            "type": "str",
+            "value": "  abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "0abc"
+          },
+          {
+            "type": "str",
+            "value": "00abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "0abc"
+          },
+          {
+            "type": "str",
+            "value": "01abc"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::str::pad_end",
+      "program": "\n            let str = \"abc\"\n            <: [\n                str.pad_end(0), str.pad_end(1), str.pad_end(2),\n                str.pad_end(3), str.pad_end(4), str.pad_end(5),\n                str.pad_end(0, \"0\"), str.pad_end(1, \"0\"), str.pad_end(2, \"0\"),\n                str.pad_end(3, \"0\"), str.pad_end(4, \"0\"), str.pad_end(5, \"0\"),\n                str.pad_end(0, \"01\"), str.pad_end(1, \"01\"), str.pad_end(2, \"01\"),\n                str.pad_end(3, \"01\"), str.pad_end(4, \"01\"), str.pad_end(5, \"01\"),\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc "
+          },
+          {
+            "type": "str",
+            "value": "abc  "
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc0"
+          },
+          {
+            "type": "str",
+            "value": "abc00"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "str",
+            "value": "abc0"
+          },
+          {
+            "type": "str",
+            "value": "abc01"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::len",
+      "program": "\n            let arr = [1, 2, 3]\n            <: arr.len\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 3.0
+      }
+    },
+    {
+      "name": "primitive_props::arr::push",
+      "program": "\n            let arr = [1, 2, 3]\n            arr.push(4)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 4.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::unshift",
+      "program": "\n            let arr = [1, 2, 3]\n            arr.unshift(4)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 4.0
+          },
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::pop",
+      "program": "\n            let arr = [1, 2, 3]\n            let popped = arr.pop()\n            <: [popped, arr]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::shift",
+      "program": "\n            let arr = [1, 2, 3]\n            let shifted = arr.shift()\n            <: [shifted, arr]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::concat",
+      "program": "\n            let arr = [1, 2, 3]\n            let concated = arr.concat([4, 5])\n            <: [concated, arr]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 4.0
+              },
+              {
+                "type": "num",
+                "value": 5.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            let sliced = arr.slice(2, 4)\n            <: [sliced, arr]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "str",
+                "value": "camel"
+              },
+              {
+                "type": "str",
+                "value": "duck"
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "str",
+                "value": "ant"
+              },
+              {
+                "type": "str",
+                "value": "bison"
+              },
+              {
+                "type": "str",
+                "value": "camel"
+              },
+              {
+                "type": "str",
+                "value": "duck"
+              },
+              {
+                "type": "str",
+                "value": "elephant"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#1",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(4, 2)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#2",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(-2, 4)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "duck"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#3",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(4, -2)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#4",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(-2, -4)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#5",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(-4, -2)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "bison"
+          },
+          {
+            "type": "str",
+            "value": "camel"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#6",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(12, 14)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "primitive_props::arr::slice_out_of_range#7",
+      "program": "\n            let arr = [\"ant\", \"bison\", \"camel\", \"duck\", \"elephant\"]\n            <: arr.slice(-14, -12)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": []
+      }
+    },
+    {
+      "name": "primitive_props::arr::join",
+      "program": "\n            let arr = [\"a\", \"b\", \"c\"]\n            <: arr.join(\"-\")\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "a-b-c"
+      }
+    },
+    {
+      "name": "primitive_props::arr::map",
+      "program": "\n            let arr = [1, 2, 3]\n            <: arr.map(@(item) { item * 2 })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 4.0
+          },
+          {
+            "type": "num",
+            "value": 6.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::map_with_index",
+      "program": "\n            let arr = [1, 2, 3]\n            <: arr.map(@(item, index) { item * index })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 6.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::filter",
+      "program": "\n            let arr = [1, 2, 3]\n            <: arr.filter(@(item) { item != 2 })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::filter_with_index",
+      "program": "\n            let arr = [1, 2, 3, 4]\n            <: arr.filter(@(item, index) { item != 2 && index != 3 })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::reduce",
+      "program": "\n            let arr = [1, 2, 3, 4]\n            <: arr.reduce(@(accumulator, currentValue) { (accumulator + currentValue) })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 10.0
+      }
+    },
+    {
+      "name": "primitive_props::arr::reduce_with_index",
+      "program": "\n            let arr = [1, 2, 3, 4]\n            <: arr.reduce(@(accumulator, currentValue, index) { (accumulator + (currentValue * index)) }, 0)\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 20.0
+      }
+    },
+    {
+      "name": "primitive_props::arr::reduce_of_empty_array_without_initial_value",
+      "program": "\n            let arr = [1, 2, 3, 4]\n            <: [].reduce(@(){})\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect_error": "runtime",
+      "skip_vm": true
+    },
+    {
+      "name": "primitive_props::arr::find",
+      "program": "\n            let arr = [\"abc\", \"def\", \"ghi\"]\n            <: arr.find(@(item) { item.incl(\"e\") })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "def"
+      }
+    },
+    {
+      "name": "primitive_props::arr::find_with_index",
+      "program": "\n            let arr = [\"abc1\", \"def1\", \"ghi1\", \"abc2\", \"def2\", \"ghi2\"]\n            <: arr.find(@(item, index) { item.incl(\"e\") && index > 1 })\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "def2"
+      }
+    },
+    {
+      "name": "primitive_props::arr::incl",
+      "program": "\n            let arr = [\"abc\", \"def\", \"ghi\"]\n            <: [arr.incl(\"def\"), arr.incl(\"jkl\")]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::index_of",
+      "program": "\n            let arr = [0,1,2,3,4,0,1,2,3,4]\n            <: [\n                arr.index_of(3) == 3,\n                arr.index_of(5) == -1,\n                arr.index_of(3, 3) == 3,\n                arr.index_of(3, 4) == 8,\n                arr.index_of(3, -1) == -1,\n                arr.index_of(3, -2) == 8,\n                arr.index_of(3, -7) == 3,\n                arr.index_of(3, 10) == -1,\n            ].map(@(v){if (v) '1' else '0'}).join()\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "11111111"
+      }
+    },
+    {
+      "name": "primitive_props::arr::reverse",
+      "program": "\n            let arr = [1, 2, 3]\n            arr.reverse()\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::copy",
+      "program": "\n            let arr = [1, 2, 3]\n            let copied = arr.copy()\n            copied.reverse()\n            <: [copied, arr]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::sort_num_array",
+      "program": "\n            var arr = [2, 10, 3]\n            let comp = @(a, b) { a - b }\n            arr.sort(comp)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::sort_string_array_with_str_lt",
+      "program": "\n            var arr = [\"hoge\", \"huga\", \"piyo\", \"hoge\"]\n            arr.sort(Str:lt)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "hoge"
+          },
+          {
+            "type": "str",
+            "value": "hoge"
+          },
+          {
+            "type": "str",
+            "value": "huga"
+          },
+          {
+            "type": "str",
+            "value": "piyo"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::sort_string_array_with_str_gt",
+      "program": "\n            var arr = [\"hoge\", \"huga\", \"piyo\", \"hoge\"]\n            arr.sort(Str:gt)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "piyo"
+          },
+          {
+            "type": "str",
+            "value": "huga"
+          },
+          {
+            "type": "str",
+            "value": "hoge"
+          },
+          {
+            "type": "str",
+            "value": "hoge"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::sort_object_array",
+      "program": "\n            var arr = [{x: 2}, {x: 10}, {x: 3}]\n            let comp = @(a, b) { a.x - b.x }\n\n            arr.sort(comp)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "obj",
+            "value": {
+              "x": {
+                "type": "num",
+                "value": 2.0
+              }
+            }
+          },
+          {
+            "type": "obj",
+            "value": {
+              "x": {
+                "type": "num",
+                "value": 3.0
+              }
+            }
+          },
+          {
+            "type": "obj",
+            "value": {
+              "x": {
+                "type": "num",
+                "value": 10.0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::sort_stable",
+      "program": "\n            var arr = [[2, 0], [10, 1], [3, 2], [3, 3], [2, 4]]\n            let comp = @(a, b) { a[0] - b[0] }\n\n            arr.sort(comp)\n            <: arr\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 4.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::fill",
+      "program": "\n            var arr1 = [0, 1, 2]\n            let arr2 = arr1.fill(3)\n            let arr3 = [0, 1, 2].fill(3, 1)\n            let arr4 = [0, 1, 2].fill(3, 1, 2)\n            let arr5 = [0, 1, 2].fill(3, -2, -1)\n            <: [arr1, arr2, arr3, arr4, arr5]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::repeat",
+      "program": "\n            var arr1 = [0, 1, 2]\n            let arr2 = arr1.repeat(3)\n            let arr3 = arr1.repeat(0)\n            <: [arr1, arr2, arr3]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::splice_full",
+      "program": "\n            let arr1 = [0, 1, 2, 3]\n            let arr2 = arr1.splice(1, 2, [10])\n            <: [arr1, arr2]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::splice_negative_index",
+      "program": "\n            let arr1 = [0, 1, 2, 3]\n            let arr2 = arr1.splice(-1, 0, [10, 20])\n            <: [arr1, arr2]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 20.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::splice_larger_index",
+      "program": "\n            let arr1 = [0, 1, 2, 3]\n            let arr2 = arr1.splice(4, 100, [10, 20])\n            <: [arr1, arr2]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 20.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::splice_single_argument",
+      "program": "\n            let arr1 = [0, 1, 2, 3]\n            let arr2 = arr1.splice(1)\n            <: [arr1, arr2]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::flat",
+      "program": "\n            var arr1 = [0, [1], [2, 3], [4, [5, 6]]]\n            let arr2 = arr1.flat()\n            let arr3 = arr1.flat(2)\n            <: [arr1, arr2, arr3]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 1.0
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 2.0
+                  },
+                  {
+                    "type": "num",
+                    "value": 3.0
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 4.0
+                  },
+                  {
+                    "type": "arr",
+                    "value": [
+                      {
+                        "type": "num",
+                        "value": 5.0
+                      },
+                      {
+                        "type": "num",
+                        "value": 6.0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 4.0
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 5.0
+                  },
+                  {
+                    "type": "num",
+                    "value": 6.0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              },
+              {
+                "type": "num",
+                "value": 4.0
+              },
+              {
+                "type": "num",
+                "value": 5.0
+              },
+              {
+                "type": "num",
+                "value": 6.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::flat_map",
+      "program": "\n            let arr1 = [0, 1, 2]\n            let arr2 = [\"a\", \"b\"]\n            let arr3 = arr1.flat_map(@(x){ arr2.map(@(y){ [x, y] }) })\n            <: [arr1, arr3]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              }
+            ]
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 0.0
+                  },
+                  {
+                    "type": "str",
+                    "value": "a"
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 0.0
+                  },
+                  {
+                    "type": "str",
+                    "value": "b"
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 1.0
+                  },
+                  {
+                    "type": "str",
+                    "value": "a"
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 1.0
+                  },
+                  {
+                    "type": "str",
+                    "value": "b"
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 2.0
+                  },
+                  {
+                    "type": "str",
+                    "value": "a"
+                  }
+                ]
+              },
+              {
+                "type": "arr",
+                "value": [
+                  {
+                    "type": "num",
+                    "value": 2.0
+                  },
+                  {
+                    "type": "str",
+                    "value": "b"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::every",
+      "program": "\n            let arr1 = [0, 1, 2, 3]\n            let res1 = arr1.every(@(v,i){v==0 || i > 0})\n            let res2 = arr1.every(@(v,i){v==0 && i > 0})\n            let res3 = [].every(@(v,i){false})\n            <: [arr1, res1, res2, res3]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          },
+          {
+            "type": "bool",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::some",
+      "program": "\n            let arr1 = [0, 1, 2, 3]\n            let res1 = arr1.some(@(v,i){v%2==0 && i <= 2})\n            let res2 = arr1.some(@(v,i){v%2==0 && i > 2})\n            <: [arr1, res1, res2]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          {
+            "type": "bool",
+            "value": true
+          },
+          {
+            "type": "bool",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::insert",
+      "program": "\n            let arr1 = [0, 1, 2]\n            let res = []\n            res.push(arr1.insert(3, 10)) // [0, 1, 2, 10]\n            res.push(arr1.insert(2, 20)) // [0, 1, 20, 2, 10]\n            res.push(arr1.insert(0, 30)) // [30, 0, 1, 20, 2, 10]\n            res.push(arr1.insert(-1, 40)) // [30, 0, 1, 20, 2, 40, 10]\n            res.push(arr1.insert(-4, 50)) // [30, 0, 1, 50, 20, 2, 40, 10]\n            res.push(arr1.insert(100, 60)) // [30, 0, 1, 50, 20, 2, 40, 10, 60]\n            res.push(arr1)\n            <: res\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 30.0
+              },
+              {
+                "type": "num",
+                "value": 0.0
+              },
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 50.0
+              },
+              {
+                "type": "num",
+                "value": 20.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 40.0
+              },
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 60.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::remove",
+      "program": "\n            let arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n            let res = []\n            res.push(arr1.remove(9)) // 9 [0, 1, 2, 3, 4, 5, 6, 7, 8]\n            res.push(arr1.remove(3)) // 3 [0, 1, 2, 4, 5, 6, 7, 8]\n            res.push(arr1.remove(0)) // 0 [1, 2, 4, 5, 6, 7, 8]\n            res.push(arr1.remove(-1)) // 8 [1, 2, 4, 5, 6, 7]\n            res.push(arr1.remove(-5)) // 2 [1, 4, 5, 6, 7]\n            res.push(arr1.remove(100)) // null [1, 4, 5, 6, 7]\n            res.push(arr1)\n            <: res\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 9.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          },
+          {
+            "type": "num",
+            "value": 0.0
+          },
+          {
+            "type": "num",
+            "value": 8.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 4.0
+              },
+              {
+                "type": "num",
+                "value": 5.0
+              },
+              {
+                "type": "num",
+                "value": 6.0
+              },
+              {
+                "type": "num",
+                "value": 7.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::at_without_default_value",
+      "program": "\n            let arr1 = [10, 20, 30]\n            <: [\n                arr1\n                arr1.at(0), arr1.at(1), arr1.at(2)\n                arr1.at(-3), arr1.at(-2), arr1.at(-1)\n                arr1.at(3), arr1.at(4), arr1.at(5)\n                arr1.at(-6), arr1.at(-5), arr1.at(-4)\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 20.0
+              },
+              {
+                "type": "num",
+                "value": 30.0
+              }
+            ]
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          },
+          {
+            "type": "num",
+            "value": 20.0
+          },
+          {
+            "type": "num",
+            "value": 30.0
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          },
+          {
+            "type": "num",
+            "value": 20.0
+          },
+          {
+            "type": "num",
+            "value": 30.0
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::at_with_default_value",
+      "program": "\n            let arr1 = [10, 20, 30]\n            <: [\n                arr1\n                arr1.at(0, 100), arr1.at(1, 100), arr1.at(2, 100)\n                arr1.at(-3, 100), arr1.at(-2, 100), arr1.at(-1, 100)\n                arr1.at(3, 100), arr1.at(4, 100), arr1.at(5, 100)\n                arr1.at(-6, 100), arr1.at(-5, 100), arr1.at(-4, 100)\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 20.0
+              },
+              {
+                "type": "num",
+                "value": 30.0
+              }
+            ]
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          },
+          {
+            "type": "num",
+            "value": 20.0
+          },
+          {
+            "type": "num",
+            "value": 30.0
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          },
+          {
+            "type": "num",
+            "value": 20.0
+          },
+          {
+            "type": "num",
+            "value": 30.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          },
+          {
+            "type": "num",
+            "value": 100.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "primitive_props::arr::at_fraction",
+      "program": "\n            let arr1 = [10, 20, 30]\n            <: [\n                arr1\n                arr1.at(0.1), arr1.at(1.4), arr1.at(2.5)\n                arr1.at(-3.1), arr1.at(-2.4), arr1.at(-1.5)\n                arr1.at(3.1), arr1.at(4.4), arr1.at(5.5)\n                arr1.at(-6.1), arr1.at(-5.4), arr1.at(-4.5)\n            ]\n            ",
+      "tags": [
+        "primitive_props"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 10.0
+              },
+              {
+                "type": "num",
+                "value": 20.0
+              },
+              {
+                "type": "num",
+                "value": 30.0
+              }
+            ]
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          },
+          {
+            "type": "num",
+            "value": 20.0
+          },
+          {
+            "type": "num",
+            "value": 30.0
+          },
+          {
+            "type": "num",
+            "value": 10.0
+          },
+          {
+            "type": "num",
+            "value": 20.0
+          },
+          {
+            "type": "num",
+            "value": 30.0
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    }
+  ]
+}

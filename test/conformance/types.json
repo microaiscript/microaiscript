@@ -1,0 +1,275 @@
+{
+  "module": "types",
+  "cases": [
+    {
+      "name": "types::function_types::multiple_params",
+      "program": "\n            let f: @(str, num) => bool = @() { true }\n            <: f('abc', 123)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "types::generics::function::expr",
+      "program": "\n                let f = @<T>(v: T): void {}\n                <: f(\"a\")\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "types::generics::function::consumer",
+      "program": "\n                @f<T>(v: T): void {}\n                <: f(\"a\")\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "types::generics::function::identity_function",
+      "program": "\n                @f<T>(v: T): T { v }\n                <: f(1)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "types::generics::function::use_as_inner_type",
+      "program": "\n                @vals<T>(v: obj<T>): arr<T> {\n                    Obj:vals(v)\n                }\n                <: vals({ a: 1, b: 2, c: 3 })\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "types::generics::function::use_as_variable_type",
+      "program": "\n                @f<T>(v: T): void {\n                    let v2: T = v\n                }\n                <: f(1)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "types::generics::function::use_as_function_type",
+      "program": "\n                @f<T>(v: T): @() => T {\n                    let g: @() => T = @() { v }\n                    g\n                }\n                <: f(1)()\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "types::generics::function::curried",
+      "program": "\n                @concat<A>(a: A): @<B>(B) => str {\n                    @<B>(b: B) {\n                        `{a}{b}`\n                    }\n                }\n                <: concat(\"abc\")(123)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "abc123"
+      }
+    },
+    {
+      "name": "types::generics::function::new_lines",
+      "program": "\n                @f<\n                    T\n                    U\n                >(x: T, y: U): arr<T | U> {\n                    [x, y]\n                }\n                <: f(\"abc\", 123)\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "num",
+            "value": 123.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "types::generics::function::duplicate",
+      "program": "\n                @f<T, T>(v: T) {}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "types::generics::function::duplicate_no_param_and_ret_types",
+      "program": "\n                @f<T, T>() {}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "types::generics::function::empty",
+      "program": "\n                @f<>() {}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "types::generics::function::cannot_have_inner_type",
+      "program": "\n                @f<T>(v: T<num>) {}\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "types::union::variable_type",
+      "program": "\n            let a: num | null = null\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "types::union::more_inners",
+      "program": "\n            let a: str | num | null = null\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "types::union::inner_type",
+      "program": "\n            let a: arr<num | str> = [\"abc\", 123]\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "str",
+            "value": "abc"
+          },
+          {
+            "type": "num",
+            "value": 123.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "types::union::param_type",
+      "program": "\n            @f(x: num | str): str {\n                `{x}`\n            }\n            <: f(1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "1"
+      }
+    },
+    {
+      "name": "types::union::return_type",
+      "program": "\n            @f(): num | str { 1 }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "types::union::type_parameter",
+      "program": "\n            @f<T>(v: T): T | null { null }\n            <: f(1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "null"
+      }
+    },
+    {
+      "name": "types::union::function_type",
+      "program": "\n            let f: @(num | str) => str = @(x) { `{x}` }\n            <: f(1)\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "1"
+      }
+    },
+    {
+      "name": "types::union::invalid_inner",
+      "program": "\n            let a: ThisIsAnInvalidTypeName | null = null\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "types::simple::error",
+      "program": "\n            let a: error = Error:create(\"Ai\")\n            <: a\n            ",
+      "tags": [
+        "core"
+      ],
+      "extract_error": "expected ( after testutils",
+      "skip_interpreter": true,
+      "skip_vm": true
+    },
+    {
+      "name": "types::simple::never",
+      "program": "\n            @f() {\n                let a: never = eval {\n                    return 1\n                }\n            }\n            <: f()\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 1.0
+      }
+    },
+    {
+      "name": "types::in_break",
+      "program": "\n        #l: eval {\n            break #l eval {\n                let x: invalid = 0\n            }\n        }\n        ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    }
+  ]
+}

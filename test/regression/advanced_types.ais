@@ -1,0 +1,118 @@
+// AiScript Advanced Type Annotations Demo
+// Demonstrates union types, generic types, and complex type annotations
+
+<: "=== Union Types ==="
+
+// Variables with union types
+let x: num | str = 42
+let y: bool | null = true
+let z: num | str | null = "hello"
+
+<: x
+<: y
+<: z
+
+<: "=== Generic Types ==="
+
+// Arrays with generic types
+let numbers: arr<num> = [1, 2, 3, 4, 5]
+let words: arr<str> = ["hello", "world"]
+let flags: arr<bool> = [true, false, true]
+
+<: numbers
+<: words
+<: flags
+
+<: "=== Function Parameter Types ==="
+
+// Function with union type parameters
+@flexible(value: num | str, optional: bool?): str {
+    if (Core:type(value) == "num") {
+        return `Number: {value}`
+    } else {
+        return `String: {value}`
+    }
+}
+
+<: flexible(42)
+<: flexible("test")
+
+<: "=== Function Return Types ==="
+
+// Function with union return type
+@maybe_number(flag: bool): num | null {
+    if (flag) {
+        return 42
+    } else {
+        return null
+    }
+}
+
+<: maybe_number(true)
+<: maybe_number(false)
+
+<: "=== Generic Array Functions ==="
+
+// Function that accepts generic array
+@sum_numbers(nums: arr<num>): num {
+    var total: num = 0
+    each (let n, nums) {
+        total += n
+    }
+    return total
+}
+
+<: sum_numbers([10, 20, 30, 40])
+
+// Function that works with string arrays
+@concat_strings(strs: arr<str>, separator: str): str {
+    return strs.join(separator)
+}
+
+<: concat_strings(["Hello", "beautiful", "world"], " ")
+
+<: "=== Complex Type Combinations ==="
+
+// Function with multiple generic and union parameters
+@process_data(data: arr<num | str>, default_val: num?): arr<str> {
+    return data.map(@(item) {
+        if (Core:type(item) == "num") {
+            return `Number: {item}`
+        } else {
+            return `String: {item}`
+        }
+    })
+}
+
+let mixed_data: arr<num | str> = [1, "two", 3, "four"]
+let result: arr<str> = process_data(mixed_data)
+<: result
+
+<: "=== Lambda Functions with Types ==="
+
+// Lambda with full type annotations
+let multiply = @(a: num, b: num): num {
+    return a * b
+}
+
+<: multiply(6, 7)
+
+// Lambda with union types
+let format = @(val: num | str): str {
+    return `Value: {val}`
+}
+
+<: format(123)
+<: format("abc")
+
+<: "=== Nested Generics (for documentation) ==="
+
+// While we can't create nested arrays directly,
+// we can document the intent with type annotations
+let matrix: arr<arr<num>> = [[1, 2], [3, 4], [5, 6]]
+<: matrix
+
+<: "=== All Done! ==="
+<: "Type annotations are parser-only and don't affect runtime behavior."
+<: "They provide excellent documentation for code maintainability!"
+

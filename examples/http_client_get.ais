@@ -1,0 +1,8 @@
+// Minimal HTTP client check (libcurl). Build: make -C modules/http-client
+// Run: ./bin/aiscript examples/http_client_get.ais
+
+import "modules/http-client/http_client.so"
+
+let r = Http:get("https://example.com")
+print(r.status)
+print(r.ok)

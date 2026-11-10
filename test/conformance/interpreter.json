@@ -1,0 +1,45 @@
+{
+  "module": "interpreter",
+  "cases": [
+    {
+      "name": "interpreter::error_location::no_var_in_namespace_declaration",
+      "program": "// vの位置\n\t\t\t:: Ai {\n\t\t\t\tlet chan = 'kawaii'\n\t\t\t\tvar kun = '!?'\n\t\t\t}\n            ",
+      "tags": [
+        "host"
+      ],
+      "skip_vm": true,
+      "skip_interpreter": true,
+      "expect_error": "runtime"
+    },
+    {
+      "name": "interpreter::error_location::index_out_of_range",
+      "program": "// [の位置\n\t\t\tlet arr = []\n\t\t\tarr[0]\n            ",
+      "tags": [
+        "host"
+      ],
+      "skip_vm": true,
+      "skip_interpreter": true,
+      "expect_error": "runtime"
+    },
+    {
+      "name": "interpreter::error_location::error_in_passed_function",
+      "program": "// (の位置\n\t\t\t[1, 2, 3].map(@(v){\n\t\t\t\tif v==1 Core:abort(\"error\")\n\t\t\t})\n            ",
+      "tags": [
+        "host"
+      ],
+      "skip_vm": true,
+      "skip_interpreter": true,
+      "expect_error": "runtime"
+    },
+    {
+      "name": "interpreter::error_location::no_such_prop",
+      "program": "// .の位置\n\t\t\t[].ai\n            ",
+      "tags": [
+        "host"
+      ],
+      "skip_vm": true,
+      "skip_interpreter": true,
+      "expect_error": "runtime"
+    }
+  ]
+}

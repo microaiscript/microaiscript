@@ -1,0 +1,23 @@
+// shows a button and displays a dialog message
+
+import ui_gtk
+
+@show() {
+	Ui:render([
+		Ui:C:container({
+			align: 'center'
+			children: [
+				
+	Ui:C:button({
+			text: "Click to become Ai-Chan"
+			onClick: @() {
+				Mk:dialog(null `You are now Ai-Chan.`)
+			}
+		})
+			]
+		})
+	])
+
+}
+
+show()

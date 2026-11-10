@@ -1,0 +1,1428 @@
+{
+  "module": "literals",
+  "cases": [
+    {
+      "name": "literals::literal::string_single_quote",
+      "program": "\n            <: 'foo'\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "foo"
+      }
+    },
+    {
+      "name": "literals::literal::string_double_quote",
+      "program": "\n            <: \"foo\"\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "foo"
+      }
+    },
+    {
+      "name": "literals::literal::escaped_double_quote",
+      "program": "<: \"ai saw a note \\\"bebeyo\\\".\"",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai saw a note \"bebeyo\"."
+      }
+    },
+    {
+      "name": "literals::literal::escaped_single_quote",
+      "program": "<: 'ai saw a note \\'bebeyo\\'.'",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "ai saw a note 'bebeyo'."
+      }
+    },
+    {
+      "name": "literals::literal::bool_true",
+      "program": "\n            <: true\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": true
+      }
+    },
+    {
+      "name": "literals::literal::bool_false",
+      "program": "\n            <: false\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "bool",
+        "value": false
+      }
+    },
+    {
+      "name": "literals::literal::number_int",
+      "program": "\n            <: 10\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 10.0
+      }
+    },
+    {
+      "name": "literals::literal::number_float",
+      "program": "\n            <: 0.5\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "num",
+        "value": 0.5
+      }
+    },
+    {
+      "name": "literals::literal::arr_separated_by_comma",
+      "program": "\n            <: [1, 2, 3]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "literals::literal::arr_separated_by_comma_with_trailing_comma",
+      "program": "\n            <: [1, 2, 3,]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "literals::literal::arr_separated_by_line_break",
+      "program": "\n            <: [\n                1\n                2\n                3\n            ]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "literals::literal::arr_separated_by_line_break_and_comma",
+      "program": "\n            <: [\n                1,\n                2,\n                3\n            ]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "literals::literal::arr_separated_by_line_break_and_comma_with_trailing_comma",
+      "program": "\n            <: [\n                1,\n                2,\n                3,\n            ]\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "arr",
+        "value": [
+          {
+            "type": "num",
+            "value": 1.0
+          },
+          {
+            "type": "num",
+            "value": 2.0
+          },
+          {
+            "type": "num",
+            "value": 3.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "literals::literal::obj_separated_by_comma",
+      "program": "\n            <: { a: 1, b: 2, c: 3 }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          },
+          "b": {
+            "type": "num",
+            "value": 2.0
+          },
+          "c": {
+            "type": "num",
+            "value": 3.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_separated_by_comma_with_trailing_comma",
+      "program": "\n            <: { a: 1, b: 2, c: 3, }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          },
+          "b": {
+            "type": "num",
+            "value": 2.0
+          },
+          "c": {
+            "type": "num",
+            "value": 3.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_separated_by_line_break",
+      "program": "\n            <: {\n                a: 1\n                b: 2\n                c: 3\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          },
+          "b": {
+            "type": "num",
+            "value": 2.0
+          },
+          "c": {
+            "type": "num",
+            "value": 3.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_string_key",
+      "program": "\n            <: {\n                \"藍\": 42,\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "藍": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_null",
+      "program": "\n                <: {\n                    null: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "null": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_true",
+      "program": "\n                <: {\n                    true: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "true": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_false",
+      "program": "\n                <: {\n                    false: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "false": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_each",
+      "program": "\n                <: {\n                    each: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "each": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_for",
+      "program": "\n                <: {\n                    for: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "for": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_loop",
+      "program": "\n                <: {\n                    loop: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "loop": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_do",
+      "program": "\n                <: {\n                    do: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "do": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_break",
+      "program": "\n                <: {\n                    break: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "break": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_continue",
+      "program": "\n                <: {\n                    continue: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "continue": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_match",
+      "program": "\n                <: {\n                    match: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "match": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_case",
+      "program": "\n                <: {\n                    case: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "case": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_default",
+      "program": "\n                <: {\n                    default: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "default": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_if",
+      "program": "\n                <: {\n                    if: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "if": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_elif",
+      "program": "\n                <: {\n                    elif: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "elif": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_else",
+      "program": "\n                <: {\n                    else: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "else": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_return",
+      "program": "\n                <: {\n                    return: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "return": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_eval",
+      "program": "\n                <: {\n                    eval: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "eval": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_var",
+      "program": "\n                <: {\n                    var: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "var": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_let",
+      "program": "\n                <: {\n                    let: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "let": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_exists",
+      "program": "\n                <: {\n                    exists: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "exists": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_as",
+      "program": "\n                <: {\n                    as: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "as": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_async",
+      "program": "\n                <: {\n                    async: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "async": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_attr",
+      "program": "\n                <: {\n                    attr: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "attr": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_attribute",
+      "program": "\n                <: {\n                    attribute: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "attribute": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_await",
+      "program": "\n                <: {\n                    await: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "await": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_catch",
+      "program": "\n                <: {\n                    catch: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "catch": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_class",
+      "program": "\n                <: {\n                    class: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "class": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_component",
+      "program": "\n                <: {\n                    component: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "component": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_constructor",
+      "program": "\n                <: {\n                    constructor: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "constructor": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_dictionary",
+      "program": "\n                <: {\n                    dictionary: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "dictionary": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_enum",
+      "program": "\n                <: {\n                    enum: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "enum": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_export",
+      "program": "\n                <: {\n                    export: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "export": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_finally",
+      "program": "\n                <: {\n                    finally: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "finally": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_fn",
+      "program": "\n                <: {\n                    fn: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "fn": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_hash",
+      "program": "\n                <: {\n                    hash: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "hash": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_in",
+      "program": "\n                <: {\n                    in: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "in": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_interface",
+      "program": "\n                <: {\n                    interface: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "interface": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_out",
+      "program": "\n                <: {\n                    out: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "out": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_private",
+      "program": "\n                <: {\n                    private: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "private": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_public",
+      "program": "\n                <: {\n                    public: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "public": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_ref",
+      "program": "\n                <: {\n                    ref: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "ref": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_static",
+      "program": "\n                <: {\n                    static: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "static": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_struct",
+      "program": "\n                <: {\n                    struct: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "struct": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_table",
+      "program": "\n                <: {\n                    table: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "table": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_this",
+      "program": "\n                <: {\n                    this: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "this": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_throw",
+      "program": "\n                <: {\n                    throw: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "throw": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_trait",
+      "program": "\n                <: {\n                    trait: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "trait": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_try",
+      "program": "\n                <: {\n                    try: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "try": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_undefined",
+      "program": "\n                <: {\n                    undefined: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "undefined": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_use",
+      "program": "\n                <: {\n                    use: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "use": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_using",
+      "program": "\n                <: {\n                    using: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "using": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_when",
+      "program": "\n                <: {\n                    when: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "when": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_while",
+      "program": "\n                <: {\n                    while: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "while": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_yield",
+      "program": "\n                <: {\n                    yield: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "yield": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_import",
+      "program": "\n                <: {\n                    import: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "import": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_is",
+      "program": "\n                <: {\n                    is: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "is": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_meta",
+      "program": "\n                <: {\n                    meta: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "meta": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_module",
+      "program": "\n                <: {\n                    module: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "module": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_namespace",
+      "program": "\n                <: {\n                    namespace: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "namespace": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_key::key_new",
+      "program": "\n                <: {\n                    new: 42,\n                }\n                ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "new": {
+            "type": "num",
+            "value": 42.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_shorthand",
+      "program": "\n            let a = 1\n            <: { a }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::literal::obj_reserved_word_as_shorthand",
+      "program": "\n            <: { exists }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "literals::literal::obj_string_as_shorthand",
+      "program": "\n            <: { \"hoge\" }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "literals::literal::obj_escaped_reserved_word_as_key",
+      "program": "\n            <: {\n                \\\\u0064\\\\u0065\\\\u0066\\\\u0061\\\\u0075\\\\u006c\\\\u0074: 42,\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "literals::literal::obj_duplicate_key",
+      "program": "\n            <: { hoge: 1, hoge: 2 }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "literals::literal::obj_invalid_key",
+      "program": "\n            <: {\n                42: 42,\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "syntax"
+    },
+    {
+      "name": "literals::literal::obj_and_arr_separated_by_line_break",
+      "program": "\n            <: {\n                a: 1\n                b: [\n                    1\n                    2\n                    3\n                ]\n                c: 3\n            }\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "obj",
+        "value": {
+          "a": {
+            "type": "num",
+            "value": 1.0
+          },
+          "b": {
+            "type": "arr",
+            "value": [
+              {
+                "type": "num",
+                "value": 1.0
+              },
+              {
+                "type": "num",
+                "value": 2.0
+              },
+              {
+                "type": "num",
+                "value": 3.0
+              }
+            ]
+          },
+          "c": {
+            "type": "num",
+            "value": 3.0
+          }
+        }
+      }
+    },
+    {
+      "name": "literals::template_syntax::basic",
+      "program": "\n            let str = \"kawaii\"\n            <: `Ai is {str}!`\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "Ai is kawaii!"
+      }
+    },
+    {
+      "name": "literals::template_syntax::convert_to_str",
+      "program": "\n            <: `1 + 1 = {(1 + 1)}`\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "1 + 1 = 2"
+      }
+    },
+    {
+      "name": "literals::template_syntax::invalid",
+      "program": "\n            <: `{hoge}`\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect_error": "runtime"
+    },
+    {
+      "name": "literals::template_syntax::escape",
+      "program": "\n            let message = \"Hello\"\n            <: `\\`a\\{b\\}c\\``\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "`a{b}c`"
+      }
+    },
+    {
+      "name": "literals::template_syntax::nested_brackets",
+      "program": "\n            <: `{if true {1} else {2}}`\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "1"
+      }
+    },
+    {
+      "name": "literals::template_syntax::new_line_before",
+      "program": "\n            <: `{\"Hello\"\n            // comment\n            }`\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "Hello"
+      }
+    },
+    {
+      "name": "literals::template_syntax::new_line_after",
+      "program": "\n            <: `{\n            // comment\n            \"Hello\"}`\n            ",
+      "tags": [
+        "core"
+      ],
+      "expect": {
+        "type": "str",
+        "value": "Hello"
+      }
+    }
+  ]
+}

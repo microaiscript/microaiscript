@@ -1,0 +1,14 @@
+// Test module with explicit variable definitions
+
+let add = @(a, b) {
+    a + b
+}
+
+let multiply = @(a, b) {
+    a * b
+}
+
+let greet = @(name) {
+    `Hello, {name}!`
+}
+

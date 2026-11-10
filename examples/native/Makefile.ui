@@ -1,0 +1,28 @@
+# Makefile for GTK UI module
+
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11 -fPIC -I../../include
+GTK_CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
+GTK_LIBS = $(shell pkg-config --libs gtk+-3.0)
+
+# Output
+TARGET = ui_gtk.so
+
+# Source files
+SOURCES = ui_gtk.c
+
+all: $(TARGET)
+
+$(TARGET): $(SOURCES)
+	$(CC) $(CFLAGS) $(GTK_CFLAGS) -shared -o $@ $^ $(GTK_LIBS)
+
+clean:
+	rm -f $(TARGET)
+
+install: $(TARGET)
+	cp $(TARGET) ../
+
+.PHONY: all clean install
+
+

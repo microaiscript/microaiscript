@@ -1,0 +1,7 @@
+// Native modules load from a bare file name in the current directory
+// (built from examples/native by `make test_scripts`)
+import "math_ext.so"
+from "math_ext.so" import fibonacci
+
+if (math_ext:factorial(5) != 120) { Core:abort("math_ext:factorial(5) should be 120") }
+if (fibonacci(10) != 55) { Core:abort("fibonacci(10) should be 55") }

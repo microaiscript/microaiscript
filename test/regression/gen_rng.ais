@@ -1,0 +1,48 @@
+// Test Math:gen_rng - Seeded Random Number Generator
+
+<: "=== Creating seeded RNG ==="
+let rng = Math:gen_rng("AICHAN")
+
+<: "=== Testing float generation (0-1) ==="
+<: rng()
+<: rng()
+<: rng()
+
+<: "=== Testing integer generation (1-10) ==="
+<: rng(1, 10)
+<: rng(1, 10)
+<: rng(1, 10)
+
+<: "=== Testing determinism (same seed = same sequence) ==="
+let rng1 = Math:gen_rng("test")
+let rng2 = Math:gen_rng("test")
+
+<: "RNG1 sequence:"
+<: rng1()
+<: rng1()
+<: rng1()
+
+<: "RNG2 sequence (should match RNG1):"
+<: rng2()
+<: rng2()
+<: rng2()
+
+<: "=== Testing different seeds produce different sequences ==="
+let rng_a = Math:gen_rng("seed_a")
+let rng_b = Math:gen_rng("seed_b")
+
+<: "Seed A:"
+<: rng_a()
+<: rng_a()
+
+<: "Seed B (should be different):"
+<: rng_b()
+<: rng_b()
+
+<: "=== Testing numeric seed ==="
+let rng_num = Math:gen_rng(12345)
+<: rng_num()
+<: rng_num(0, 100)
+
+<: "=== All gen_rng tests complete! ==="
+

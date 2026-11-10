@@ -1,0 +1,7 @@
+# Paths are relative to this directory (project root for pack).
+entry = "main.ais"
+files = [
+  "main.ais",
+  "lib/demo_native.so",
+]
+minify = true

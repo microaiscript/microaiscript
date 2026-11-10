@@ -1,0 +1,71 @@
+// Test Str and Obj namespaces
+
+<: "=== Str:lf - Line feed constant ==="
+<: "Before" + Str:lf + "After"
+
+<: "=== Str:lt() - String comparison ==="
+<: Str:lt("abc", "def")  // -1
+<: Str:lt("abc", "abc")  // 0
+<: Str:lt("def", "abc")  // 1
+
+<: "=== Str:gt() - String comparison (reverse) ==="
+<: Str:gt("abc", "def")  // 1
+<: Str:gt("abc", "abc")  // 0
+<: Str:gt("def", "abc")  // -1
+
+<: "=== Str:from_codepoint() - Create char from codepoint ==="
+<: Str:from_codepoint(65)   // A
+<: Str:from_codepoint(9731) // ☃ (snowman)
+<: Str:from_codepoint(128512) // 😀 (grinning face)
+
+<: "=== Str:from_unicode_codepoints() - Create string from codepoint array ==="
+<: Str:from_unicode_codepoints([72, 101, 108, 108, 111])  // Hello
+<: Str:from_unicode_codepoints([9731, 32, 128512])  // ☃ 😀
+
+<: "=== Str:from_utf8_bytes() - Create string from UTF-8 bytes ==="
+<: Str:from_utf8_bytes([72, 105])  // Hi
+<: Str:from_utf8_bytes([65, 66, 67])  // ABC
+
+<: "=== Obj:keys() - Get object keys ==="
+let obj1 = {name: "Alice", age: 30, city: "NYC"}
+<: Obj:keys(obj1)
+
+<: "=== Obj:vals() - Get object values ==="
+<: Obj:vals(obj1)
+
+<: "=== Obj:kvs() - Get key-value pairs ==="
+<: Obj:kvs({x: 10, y: 20})
+
+<: "=== Obj:get() - Get value by key ==="
+<: Obj:get(obj1, "name")
+<: Obj:get(obj1, "missing")
+
+<: "=== Obj:set() - Set key-value ==="
+let obj2 = {a: 1}
+Obj:set(obj2, "b", 2)
+<: obj2
+
+<: "=== Obj:has() - Check if key exists ==="
+<: Obj:has(obj1, "name")
+<: Obj:has(obj1, "missing")
+
+<: "=== Obj:copy() - Shallow copy ==="
+let obj3 = Obj:copy(obj1)
+Obj:set(obj3, "age", 31)
+<: "Original: " + Core:to_str(obj1)
+<: "Copy: " + Core:to_str(obj3)
+
+<: "=== Obj:merge() - Merge two objects ==="
+let merged = Obj:merge({a: 1, b: 2}, {b: 3, c: 4})
+<: merged
+
+<: "=== Obj:pick() - Pick specific keys ==="
+let picked = Obj:pick({a: 1, b: 2, c: 3}, ["a", "c"])
+<: picked
+
+<: "=== Obj:from_kvs() - Create object from key-value pairs ==="
+let from_kvs = Obj:from_kvs([["x", 10], ["y", 20], ["z", 30]])
+<: from_kvs
+
+<: "=== All Str and Obj tests complete! ==="
+

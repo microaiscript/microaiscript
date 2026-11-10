@@ -1,0 +1,48 @@
+// Test Uri and Num namespaces
+
+<: "=== Num:from_hex() - Parse hexadecimal ==="
+<: Num:from_hex("FF")
+<: Num:from_hex("1A")
+<: Num:from_hex("0x10")
+<: Num:from_hex("0")
+<: Num:from_hex("DEADBEEF")
+
+<: "=== Uri:encode_full() - Encode URI ==="
+let url = "https://example.com/path?key=value&foo=bar"
+<: "Original: " + url
+<: "Encoded: " + Uri:encode_full(url)
+
+let url2 = "Hello World! こんにちは"
+<: "Original: " + url2
+<: "Encoded: " + Uri:encode_full(url2)
+
+<: "=== Uri:encode_component() - Encode URI component ==="
+let param = "Hello & goodbye"
+<: "Original: " + param
+<: "Encoded: " + Uri:encode_component(param)
+
+let param2 = "user@example.com"
+<: "Original: " + param2
+<: "Encoded: " + Uri:encode_component(param2)
+
+<: "=== Uri:decode_full() - Decode URI ==="
+let encoded1 = "https://example.com/path?name=John%20Doe"
+<: "Encoded: " + encoded1
+<: "Decoded: " + Uri:decode_full(encoded1)
+
+<: "=== Uri:decode_component() - Decode URI component ==="
+let encoded2 = "Hello%20%26%20goodbye"
+<: "Encoded: " + encoded2
+<: "Decoded: " + Uri:decode_component(encoded2)
+
+<: "=== Round-trip test ==="
+let original = "Testing: 1+2=3"
+let enc = Uri:encode_component(original)
+let dec = Uri:decode_component(enc)
+<: "Original: " + original
+<: "Encoded: " + enc
+<: "Decoded: " + dec
+<: "Match: " + Core:to_str(original == dec)
+
+<: "=== All Uri and Num tests complete! ==="
+

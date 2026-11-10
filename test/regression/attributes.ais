@@ -1,0 +1,22 @@
+// Test attributes - parser-only, should not affect execution
+
+#[Event "Click"]
+@onClick() {
+    <: "Button clicked"
+}
+
+#[Endpoint { path: "/test" }]
+#[Desc "Test function"]
+#[Cat true]
+@testFunc(arg) {
+    <: arg
+}
+
+// Attributes on variables
+#[Documented]
+let x = 42
+
+<: onClick()
+<: testFunc("Hello")
+<: x
+<: "All attributes parsed successfully!"

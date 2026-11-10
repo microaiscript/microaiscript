@@ -1,0 +1,10 @@
+// Test .ais module with namespaces
+
+import "math_utils.ais"
+
+<: "Testing math_utils namespace:"
+<: math_utils:square(5)
+<: math_utils:cube(3)
+
+<: ""
+<: "AiScript namespace test complete!"

@@ -1,0 +1,15 @@
+// Math utilities module
+
+@square(x) {
+    return x ^ 2
+}
+
+@cube(x) {
+    return x * x * x
+}
+
+@add_ten(n) {
+    return n + 10
+}
+
+<: "Math utilities loaded!"

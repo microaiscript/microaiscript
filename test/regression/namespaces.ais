@@ -1,0 +1,21 @@
+// Test namespace definitions
+
+:: Math {
+    let PI = 3.14159
+    let E = 2.71828
+    
+    @square(x) {
+        return x ^ 2
+    }
+    
+    @circle_area(r) {
+        return PI * (r ^ 2)
+    }
+}
+
+<: Math:PI
+<: Math:E
+<: Math:square(5)
+<: Math:circle_area(2)
+
+<: "All namespaces working!"

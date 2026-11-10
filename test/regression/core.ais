@@ -1,0 +1,45 @@
+// Test Core namespace functions
+
+<: "=== Core Constants ==="
+<: Core:v
+<: Core:ai
+
+<: "=== Core Utilities ==="
+<: Core:type(42)
+<: Core:type("hello")
+<: Core:type([1, 2, 3])
+<: Core:type(true)
+<: Core:type(null)
+
+<: Core:to_str(42)
+<: Core:to_str(true)
+<: Core:to_str([1, 2, 3])
+
+<: "=== Core:range ==="
+<: Core:range(1, 5)
+<: Core:range(5, 1)
+<: Core:range(3, 3)
+
+<: "=== Core:sleep ==="
+<: "Sleeping for 100ms..."
+Core:sleep(100)
+<: "Done!"
+
+<: "=== Operator Functions ==="
+<: Core:add(10, 5)
+<: Core:sub(10, 5)
+<: Core:mul(10, 5)
+<: Core:div(10, 5)
+<: Core:mod(10, 3)
+<: Core:pow(2, 3)
+
+<: Core:eq(5, 5)
+<: Core:neq(5, 3)
+<: Core:gt(10, 5)
+<: Core:lt(5, 10)
+
+<: Core:and(true, true)
+<: Core:or(false, true)
+<: Core:not(false)
+
+<: "=== All Core functions working! ==="

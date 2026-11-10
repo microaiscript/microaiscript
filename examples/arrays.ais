@@ -1,0 +1,21 @@
+// Arrays example
+
+let arr = [1, 2, 3, 4, 5]
+
+<: "Array:"
+<: arr
+
+<: ""
+<: "Array length:"
+<: arr.len
+
+<: ""
+<: "Array elements:"
+<: arr[0]
+<: arr[1]
+<: arr[2]
+
+<: ""
+<: "Array with mixed types:"
+let mixed = [1, "hello", true, null]
+<: mixed

@@ -1,0 +1,37 @@
+// Test Util and Arr namespaces
+
+<: "=== Util:uuid() - Generate UUIDs ==="
+<: Util:uuid()
+<: Util:uuid()
+<: Util:uuid()
+
+<: "=== Verify UUID format ==="
+let uuid = Util:uuid()
+<: "UUID: " + uuid
+<: "Length: " + Core:to_str(uuid.len)
+
+<: "=== Arr:create() - Create arrays ==="
+
+<: "Create array of length 5 (null filled):"
+<: Arr:create(5)
+
+<: "Create array of length 3 with initial value 0:"
+<: Arr:create(3, 0)
+
+<: "Create array of length 4 with initial value 'hello':"
+<: Arr:create(4, "hello")
+
+<: "Create array of length 2 with initial value true:"
+<: Arr:create(2, true)
+
+<: "Create empty array (length 0):"
+<: Arr:create(0)
+
+<: "=== Using created arrays ==="
+let arr = Arr:create(3, 10)
+<: "Created: " + Core:to_str(arr)
+arr[1] = 99
+<: "After modification: " + Core:to_str(arr)
+
+<: "=== All Util and Arr tests complete! ==="
+

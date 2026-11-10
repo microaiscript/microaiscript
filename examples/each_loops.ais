@@ -1,0 +1,38 @@
+// Each loop with simple array
+var arr = [1, 2, 3, 4, 5]
+<: "Each item in array:"
+each (let item, arr) {
+  <: item
+}
+
+// Each loop with string array
+var names = ["Alice", "Bob", "Charlie"]
+<: "Names:"
+each (let name, names) {
+  <: name
+}
+
+// Each loop with nested arrays
+var matrix = [[1, 2], [3, 4], [5, 6]]
+<: "Matrix rows:"
+each (let row, matrix) {
+  <: row
+}
+
+// Each loop with break
+<: "With break:"
+each (let x, [10, 20, 30, 40, 50]) {
+  if x >= 30 { break }
+  <: x
+}
+
+// Each loop with continue
+<: "With continue (skip even):"
+each (let num, [1, 2, 3, 4, 5, 6]) {
+  if num % 2 == 0 { continue }
+  <: num
+}
+
+<: "Done!"
+
+

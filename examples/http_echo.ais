@@ -1,0 +1,27 @@
+// Echo HTTP server (libmicrohttpd2). Build modules first: make -C modules/http-server
+// Run from repo root: ./bin/aiscript examples/http_echo.ais
+// Test from another shell while this runs: curl -s http://127.0.0.1:8080/hello
+
+import "modules/http-server/http_server.so"
+
+let h = HttpServer:create({
+  port: 8080,
+  handler: @(req) {
+    return {
+      status: 200,
+      body: req.path
+    }
+  }
+})
+
+print(`HTTP echo server handle={h} on port 8080 (poll loop; Ctrl+C to stop)`)
+var n = 0
+loop {
+  HttpServer:poll(h, 500000)
+  n += 1
+  if n >= 240 {
+    break
+  }
+}
+HttpServer:stop(h)
+print("stopped")
